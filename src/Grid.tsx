@@ -1,6 +1,20 @@
 import "./Grid.css";
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
+
+const createCursor = (radius: number): string => {
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
+  canvas.width = radius * 2;
+  canvas.height = radius * 2;
+
+  ctx.beginPath();
+  ctx.arc(radius, radius, radius, 0, 2 * Math.PI);
+  ctx.strokeStyle = "black"; // Color of the circle
+  ctx.stroke();
+
+  return canvas.toDataURL("image/png");
+};
 
 const Grid = ({
   gridData,
@@ -10,6 +24,9 @@ const Grid = ({
   brushSize,
 }) => {
   const [isMouseDown, setIsMouseDown] = useState(false);
+
+  const radius = brushSize * 8;
+  const cursorDataURL = useMemo(() => createCursor(radius), [brushSize]);
 
   const handleMouseDown = (row, col) => {
     setIsMouseDown(true);
@@ -53,6 +70,7 @@ const Grid = ({
   return (
     <div
       className="grid"
+      style={{ cursor: `url('${cursorDataURL}') ${radius} ${radius}, auto` }}
       onMouseLeave={handleMouseUp} // Optional: Stops coloring when the mouse leaves the grid area
     >
       {gridData.map((row, rowIndex) => (
