@@ -1,0 +1,24 @@
+.palette-selector {
+  /* your styles */
+}
+
+.colors {
+  /* styles for displaying color swatches */
+}
+
+.color-swatch {
+  width: 24px;
+  height: 24px;
+  border: 1px solid #ddd; /* Example styling */
+  display: inline-block;
+  margin: 4px;
+  cursor: pointer;
+}
+
+.color-picker {
+  /* styles for color input */
+}
+
+.add-color-btn {
+  /* styles for the add button */
+}
