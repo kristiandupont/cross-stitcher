@@ -19,6 +19,8 @@ const initialPalette = [
 ]; // Example colors
 
 const App = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   // Initialize grid data (50x50 cells, all null initially)
   const initialGridData = Array(50)
     .fill(null)
@@ -78,15 +80,19 @@ const App = () => {
         brushSize={brushSize}
       />
 
-      {/* Lazy PDFDownloadLink */}
-      <PDFDownloadLink
-        document={<PdfRenderer gridData={gridData} palette={palette} />}
-        fileName="cross-stitch-pattern.pdf"
-      >
-        {({ blob, url, loading, error }) =>
-          loading ? "Loading document..." : "Download PDF"
-        }
-      </PDFDownloadLink>
+      <button onClick={() => setMenuOpen(!menuOpen)}>Menu</button>
+      {menuOpen && (
+        <div className="menu">
+          <PDFDownloadLink
+            document={<PdfRenderer gridData={gridData} palette={palette} />}
+            fileName="cross-stitch-pattern.pdf"
+          >
+            {({ blob, url, loading, error }) =>
+              loading ? "Loading document..." : "Download PDF"
+            }
+          </PDFDownloadLink>
+        </div>
+      )}
     </div>
   );
 };
