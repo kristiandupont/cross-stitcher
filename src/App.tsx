@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import PaletteSelector from "./PaletteSelector";
 import Grid from "./Grid";
-import { PDFDownloadLink, BlobProvider } from "@react-pdf/renderer";
-import { saveAs } from "file-saver";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 
 import PdfRenderer from "./PdfRenderer";
+import DropdownMenu from "./DropdownMenu";
 
 // Initial palette colors (can be modified)
 const initialPalette = [
@@ -24,7 +24,7 @@ const App = () => {
   // Initialize grid data (50x50 cells, all null initially)
   const initialGridData = Array(50)
     .fill(null)
-    .map(() => Array(50).fill(null));
+    .map(() => Array(80).fill(null));
 
   // State for the palette and grid data
   const [palette, setPalette] = useState(initialPalette);
@@ -46,53 +46,60 @@ const App = () => {
   };
 
   return (
-    <div className="app-container">
-      {/* Palette Selector Component */}
-      {/* Pass palette and a function to modify it */}
-      <PaletteSelector
-        palette={palette}
-        setPalette={setPalette}
-        selectedIndex={selectedColorIndex}
-        setSelectedIndex={setSelectedColorIndex}
-      />
+    <div className="flex flex-col items-center justify-between w-full">
+      <nav className="flex items-center justify-between w-full p-4 bg-white/60">
+        <h1 className="text-2xl font-bold">Cross Stitch Pattern Maker</h1>
+        <DropdownMenu />
+      </nav>
 
-      {/* Slider to adjust brush size */}
-      <div className="brush-size-slider">
-        <input
-          type="range"
-          id="brushSize"
-          min="0.5"
-          max="12"
-          step={0.1}
-          value={brushSize}
-          onChange={handleBrushSizeChange}
+      <main className="flex flex-col items-center justify-center w-full flex-1">
+        {/* Palette Selector Component */}
+        {/* Pass palette and a function to modify it */}
+        <PaletteSelector
+          palette={palette}
+          setPalette={setPalette}
+          selectedIndex={selectedColorIndex}
+          setSelectedIndex={setSelectedColorIndex}
         />
-        <label htmlFor="brushSize">Brush Size: {brushSize}</label>
-      </div>
 
-      {/* Grid Component */}
-      {/* Pass grid data and a function to update the grid */}
-      <Grid
-        gridData={gridData}
-        updateGridCell={updateGridCell}
-        palette={palette}
-        selectedColorIndex={selectedColorIndex}
-        brushSize={brushSize}
-      />
-
-      <button onClick={() => setMenuOpen(!menuOpen)}>Menu</button>
-      {menuOpen && (
-        <div className="menu">
-          <PDFDownloadLink
-            document={<PdfRenderer gridData={gridData} palette={palette} />}
-            fileName="cross-stitch-pattern.pdf"
-          >
-            {({ blob, url, loading, error }) =>
-              loading ? "Loading document..." : "Download PDF"
-            }
-          </PDFDownloadLink>
+        {/* Slider to adjust brush size */}
+        <div className="brush-size-slider">
+          <input
+            type="range"
+            id="brushSize"
+            min="0.5"
+            max="8"
+            step={0.1}
+            value={brushSize}
+            onChange={handleBrushSizeChange}
+          />
+          <label htmlFor="brushSize">Brush Size: {brushSize}</label>
         </div>
-      )}
+
+        <div className="bg-white/30 p-8">
+          <Grid
+            gridData={gridData}
+            updateGridCell={updateGridCell}
+            palette={palette}
+            selectedColorIndex={selectedColorIndex}
+            brushSize={brushSize}
+          />
+        </div>
+
+        <button onClick={() => setMenuOpen(!menuOpen)}>Menu</button>
+        {menuOpen && (
+          <div className="menu">
+            <PDFDownloadLink
+              document={<PdfRenderer gridData={gridData} palette={palette} />}
+              fileName="cross-stitch-pattern.pdf"
+            >
+              {({ blob, url, loading, error }) =>
+                loading ? "Loading document..." : "Download PDF"
+              }
+            </PDFDownloadLink>
+          </div>
+        )}
+      </main>
     </div>
   );
 };

@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import "./PaletteSelector.css";
 import React, { useState } from "react";
 
@@ -23,12 +24,13 @@ const PaletteSelector = ({
         {palette.map((color, index) => (
           <div
             key={index}
-            className="color-swatch"
+            className={clsx(
+              "w-6 h-6 m-2 border-2 inline-block cursor-pointer",
+              selectedIndex === index ? "border-black" : "border-white"
+            )}
             style={{ backgroundColor: color }}
             onClick={() => setSelectedIndex(index)}
-          >
-            {selectedIndex === index ? "X" : "_"}
-          </div>
+          />
         ))}
       </div>
       <div className="add-color">

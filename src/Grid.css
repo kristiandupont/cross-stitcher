@@ -11,7 +11,8 @@
 .grid-cell {
   width: 8px; /* Cell size */
   height: 8px;
-  border: 1px solid #eee; /* Slight border for cell separation */
+  border-left: 1px solid #eee; /* Slight border for cell separation */
+  border-top: 1px solid #eee; /* Slight border for cell separation */
 }
 
 .grid-row.tenth-row .grid-cell {

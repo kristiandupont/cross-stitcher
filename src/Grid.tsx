@@ -78,7 +78,7 @@ const Grid = ({
 
   return (
     <div
-      className="grid"
+      className="grid bg-white"
       style={{ cursor: `url('${cursorDataURL}') ${radius} ${radius}, auto` }}
       onMouseLeave={handleMouseUp}
       onDragStart={(e) => e.preventDefault()}

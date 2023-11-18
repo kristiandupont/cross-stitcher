@@ -21,6 +21,14 @@ const PdfRenderer = ({ gridData, palette }) => {
   const centerRow = Math.floor(gridData.length / 2);
   const centerCol = Math.floor(gridData[0].length / 2);
 
+  const rowCount = gridData.length;
+  const colCount = gridData[0].length;
+
+  const cellWidth = 575 / colCount;
+  const cellHeight = 575 / rowCount;
+
+  const cellSize = Math.min(cellWidth, cellHeight);
+
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -31,20 +39,22 @@ const PdfRenderer = ({ gridData, palette }) => {
                 <View
                   key={cellIndex}
                   style={{
-                    width: 10,
-                    height: 10,
+                    width: cellSize,
+                    height: cellSize,
                     backgroundColor: cell !== null ? palette[cell] : "white",
                     // Apply special styling for tenth and center lines
-                    borderTop: isTenthLine(rowIndex)
-                      ? "2px solid black"
-                      : "2px solid #E4E4E4",
-                    borderLeft: isTenthLine(cellIndex)
-                      ? "2px solid black"
-                      : "2px solid #E4E4E4",
-                    // borderColor:
-                    //   rowIndex === centerRow || cellIndex === centerCol
-                    //     ? "red"
-                    //     : undefined,
+                    borderTop:
+                      rowIndex === centerRow
+                        ? "1px solid red"
+                        : isTenthLine(rowIndex)
+                          ? "1px solid black"
+                          : "1px solid #E4E4E4",
+                    borderLeft:
+                      cellIndex === centerCol
+                        ? "1px olid red"
+                        : isTenthLine(cellIndex)
+                          ? "1px solid black"
+                          : "1px solid #E4E4E4",
                   }}
                 />
               ))}
@@ -52,9 +62,17 @@ const PdfRenderer = ({ gridData, palette }) => {
           ))}
         </View>
         <View style={styles.section}>
-          <Text>Palette Information:</Text>
+          <Text>Colors:</Text>
           {palette.map((color, index) => (
-            <Text key={index}>{color}</Text>
+            <View
+              key={index}
+              style={{
+                backgroundColor: color,
+                height: 20,
+                width: 80,
+                marginTop: 5,
+              }}
+            />
           ))}
         </View>
       </Page>
