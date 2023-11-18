@@ -44,9 +44,11 @@ const Grid = ({
   };
 
   const updateCells = (row, col) => {
+    const min1 = Math.ceil(Math.max(brushSize, 1));
+
     // Iterate over a square area around the central cell
-    for (let i = -brushSize; i <= brushSize; i++) {
-      for (let j = -brushSize; j <= brushSize; j++) {
+    for (let i = -min1; i <= min1; i++) {
+      for (let j = -min1; j <= min1; j++) {
         const newRow = row + i;
         const newCol = col + j;
 
@@ -71,7 +73,8 @@ const Grid = ({
     <div
       className="grid"
       style={{ cursor: `url('${cursorDataURL}') ${radius} ${radius}, auto` }}
-      onMouseLeave={handleMouseUp} // Optional: Stops coloring when the mouse leaves the grid area
+      onMouseLeave={handleMouseUp}
+      onDragStart={(e) => e.preventDefault()}
     >
       {gridData.map((row, rowIndex) => (
         <div key={rowIndex} className="grid-row">
