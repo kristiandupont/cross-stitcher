@@ -42,6 +42,7 @@ const App = () => {
         updateGridCell={updateGridCell}
         palette={palette}
         selectedColorIndex={selectedColorIndex}
+        brushSize={2}
       />
     </div>
   );

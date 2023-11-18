@@ -1,15 +1,60 @@
 import "./Grid.css";
-import React from "react";
 
-const Grid = ({ gridData, updateGridCell, palette, selectedColorIndex }) => {
-  const handleCellClick = (row, col) => {
-    // Assuming a selectedColor state in the App component that holds the currently selected color index
-    // You would need to pass selectedColor and setSelectedColor as props to this component
-    updateGridCell(row, col, selectedColorIndex);
+import React, { useState } from "react";
+
+const Grid = ({
+  gridData,
+  updateGridCell,
+  palette,
+  selectedColorIndex,
+  brushSize,
+}) => {
+  const [isMouseDown, setIsMouseDown] = useState(false);
+
+  const handleMouseDown = (row, col) => {
+    setIsMouseDown(true);
+    updateCells(row, col);
+  };
+
+  const handleMouseUp = () => {
+    setIsMouseDown(false);
+  };
+
+  const handleMouseMove = (row, col) => {
+    if (isMouseDown) {
+      updateCells(row, col);
+    }
+  };
+
+  const updateCells = (row, col) => {
+    // Iterate over a square area around the central cell
+    for (let i = -brushSize; i <= brushSize; i++) {
+      for (let j = -brushSize; j <= brushSize; j++) {
+        const newRow = row + i;
+        const newCol = col + j;
+
+        // Check if the cell is within the grid boundaries
+        if (
+          newRow >= 0 &&
+          newRow < gridData.length &&
+          newCol >= 0 &&
+          newCol < gridData[0].length
+        ) {
+          // Calculate distance from the central cell to determine if it's within the circle
+          const distance = Math.sqrt(i * i + j * j);
+          if (distance <= brushSize) {
+            updateGridCell(newRow, newCol, selectedColorIndex);
+          }
+        }
+      }
+    }
   };
 
   return (
-    <div className="grid">
+    <div
+      className="grid"
+      onMouseLeave={handleMouseUp} // Optional: Stops coloring when the mouse leaves the grid area
+    >
       {gridData.map((row, rowIndex) => (
         <div key={rowIndex} className="grid-row">
           {row.map((cell, colIndex) => (
@@ -19,7 +64,9 @@ const Grid = ({ gridData, updateGridCell, palette, selectedColorIndex }) => {
               style={{
                 backgroundColor: cell !== null ? palette[cell] : "transparent",
               }}
-              onClick={() => handleCellClick(rowIndex, colIndex)}
+              onMouseDown={() => handleMouseDown(rowIndex, colIndex)}
+              onMouseUp={handleMouseUp}
+              onMouseMove={() => handleMouseMove(rowIndex, colIndex)}
             />
           ))}
         </div>
