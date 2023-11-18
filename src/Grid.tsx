@@ -28,6 +28,13 @@ const Grid = ({
   const radius = brushSize * 8;
   const cursorDataURL = useMemo(() => createCursor(radius), [brushSize]);
 
+  // Function to check if it's a tenth line
+  const isTenthLine = (index) => index % 10 === 0;
+
+  // Calculate the center row and column
+  const centerRow = Math.floor(gridData.length / 2);
+  const centerCol = Math.floor(gridData[0].length / 2);
+
   const handleMouseDown = (row, col) => {
     setIsMouseDown(true);
     updateCells(row, col);
@@ -77,11 +84,18 @@ const Grid = ({
       onDragStart={(e) => e.preventDefault()}
     >
       {gridData.map((row, rowIndex) => (
-        <div key={rowIndex} className="grid-row">
+        <div
+          key={rowIndex}
+          className={`grid-row ${isTenthLine(rowIndex) ? "tenth-row" : ""} ${
+            rowIndex === centerRow ? "center-row" : ""
+          }`}
+        >
           {row.map((cell, colIndex) => (
             <div
               key={colIndex}
-              className="grid-cell"
+              className={`grid-cell ${
+                isTenthLine(colIndex) ? "tenth-col" : ""
+              } ${colIndex === centerCol ? "center-col" : ""}`}
               style={{
                 backgroundColor: cell !== null ? palette[cell] : "transparent",
               }}

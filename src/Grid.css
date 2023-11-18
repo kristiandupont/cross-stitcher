@@ -13,3 +13,20 @@
   height: 8px;
   border: 1px solid #eee; /* Slight border for cell separation */
 }
+
+.grid-row.tenth-row .grid-cell {
+  border-top: 1px solid #bbb; /* Styling for every tenth line (darker lines) */
+}
+
+.grid-cell.tenth-col {
+  /* Styling for every tenth line (darker lines) */
+  border-left: 1px solid #bbb;
+}
+
+.grid-row.center-row .grid-cell {
+  border-top: 1px solid red !important; /* Styling for the central red line */
+}
+.grid-cell.center-col {
+  /* Styling for the central red line */
+  border-left: 1px solid red !important;
+}

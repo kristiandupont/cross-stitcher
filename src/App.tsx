@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import PaletteSelector from "./PaletteSelector";
 import Grid from "./Grid";
+import { PDFDownloadLink, BlobProvider } from "@react-pdf/renderer";
+import { saveAs } from "file-saver";
+
+import PdfRenderer from "./PdfRenderer";
 
 // Initial palette colors (can be modified)
 const initialPalette = [
@@ -73,6 +77,16 @@ const App = () => {
         selectedColorIndex={selectedColorIndex}
         brushSize={brushSize}
       />
+
+      {/* Lazy PDFDownloadLink */}
+      <PDFDownloadLink
+        document={<PdfRenderer gridData={gridData} palette={palette} />}
+        fileName="cross-stitch-pattern.pdf"
+      >
+        {({ blob, url, loading, error }) =>
+          loading ? "Loading document..." : "Download PDF"
+        }
+      </PDFDownloadLink>
     </div>
   );
 };

@@ -27,7 +27,7 @@ const PaletteSelector = ({
             style={{ backgroundColor: color }}
             onClick={() => setSelectedIndex(index)}
           >
-            {selectedIndex === index && "X"}
+            {selectedIndex === index ? "X" : "_"}
           </div>
         ))}
       </div>
