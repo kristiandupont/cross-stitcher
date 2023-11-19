@@ -52,8 +52,8 @@ const App = () => {
         <DropdownMenu />
       </nav>
 
-      <main className="flex flex-row items-center justify-between w-full flex-1 pt-8">
-        <div className="flex-1 p-8 flex flex-col items-end justify-start">
+      <main className="flex flex-row items-start justify-between w-full flex-1 pt-8">
+        <div className="flex-1 px-8 flex flex-col items-end justify-start">
           <div className="bg-white/30 p-4 rounded-xl flex flex-col items-center">
             <div className="h-48 w-6 flex justify-center">
               <input
@@ -82,7 +82,7 @@ const App = () => {
           />
         </div>
 
-        <div className="flex-1 p-8 flex flex-col items-start justify-start">
+        <div className="flex-1 px-8 flex flex-col items-start justify-start">
           <div className="bg-white/30 p-4 rounded-xl flex flex-col items-center">
             <PaletteSelector
               palette={palette}

@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import ColorPicker from "./ColorPicker";
 
 const PaletteSelector = ({
   palette,
@@ -14,12 +15,8 @@ const PaletteSelector = ({
     }
   };
 
-  const handleAddColorClick = () => {
-    hiddenColorInputRef.current.click(); // Simulate click on hidden color input
-  };
-
-  const handleColorChange = (e) => {
-    addColorToPalette(e.target.value);
+  const handleColorChange = (color) => {
+    addColorToPalette(color);
     setSelectedColorIndex(palette.length - 1);
   };
 
@@ -38,15 +35,7 @@ const PaletteSelector = ({
         ))}
       </div>
       <div className="flex flex-col items-center">
-        <input
-          type="color"
-          ref={hiddenColorInputRef}
-          onChange={handleColorChange}
-          style={{ display: "none" }} // Hide the color input
-        />
-        <button onClick={handleAddColorClick} className="">
-          Add Color
-        </button>
+        <ColorPicker addColor={handleColorChange} />
       </div>
     </div>
   );
