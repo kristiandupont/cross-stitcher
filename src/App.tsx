@@ -19,11 +19,15 @@ const initialPalette = [
 
 export type Grid = (number | null)[][];
 
-function useDebouncedLocalStorageState(key, defaultValue, delay = 500) {
+function useDebouncedLocalStorageState<T>(
+  key: string,
+  defaultValue: T,
+  delay = 500
+) {
   // Retrieve initial value from local storage or use default
   const [value, setValue] = useState(() => {
     const storedValue = localStorage.getItem(key);
-    return storedValue !== null ? JSON.parse(storedValue) : defaultValue;
+    return storedValue === null ? defaultValue : JSON.parse(storedValue);
   });
 
   // Debounce logic to update local storage
