@@ -1,5 +1,4 @@
-import clsx from "clsx";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 const PaletteSelector = ({
   palette,
@@ -7,14 +6,21 @@ const PaletteSelector = ({
   selectedIndex,
   setSelectedIndex,
 }) => {
-  const [newColor, setNewColor] = useState(""); // State to hold the new color value
+  const hiddenColorInputRef = useRef(null); // Ref for the hidden color input
 
-  // Function to add new color to the palette
-  const addColorToPalette = () => {
-    if (newColor && !palette.includes(newColor)) {
-      setPalette([...palette, newColor]);
-      setNewColor(""); // Reset the input field
+  const addColorToPalette = (color) => {
+    if (color && !palette.includes(color)) {
+      setPalette([...palette, color]);
     }
+  };
+
+  const handleAddColorClick = () => {
+    hiddenColorInputRef.current.click(); // Simulate click on hidden color input
+  };
+
+  const handleColorChange = (e) => {
+    addColorToPalette(e.target.value);
+    setSelectedColorIndex(palette.length - 1);
   };
 
   return (
@@ -23,10 +29,9 @@ const PaletteSelector = ({
         {palette.map((color, index) => (
           <div
             key={index}
-            className={clsx(
-              "w-8 h-8 rounded drop-shadow border-2 cursor-pointer",
+            className={`w-8 h-8 rounded drop-shadow border-2 cursor-pointer ${
               selectedIndex === index ? "border-white" : "border-transparent"
-            )}
+            }`}
             style={{ backgroundColor: color }}
             onClick={() => setSelectedIndex(index)}
           />
@@ -35,11 +40,11 @@ const PaletteSelector = ({
       <div className="flex flex-col items-center">
         <input
           type="color"
-          value={newColor}
-          onChange={(e) => setNewColor(e.target.value)}
-          className=""
+          ref={hiddenColorInputRef}
+          onChange={handleColorChange}
+          style={{ display: "none" }} // Hide the color input
         />
-        <button onClick={addColorToPalette} className="">
+        <button onClick={handleAddColorClick} className="">
           Add Color
         </button>
       </div>
