@@ -1,13 +1,3 @@
-.grid {
-  display: flex;
-  flex-direction: column;
-  user-select: none;
-}
-
-.grid-row {
-  display: flex;
-}
-
 .grid-cell {
   width: 8px; /* Cell size */
   height: 8px;

@@ -78,7 +78,7 @@ const Grid = ({
 
   return (
     <div
-      className="grid bg-white"
+      className="flex flex-col select-none bg-white"
       style={{ cursor: `url('${cursorDataURL}') ${radius} ${radius}, auto` }}
       onMouseLeave={handleMouseUp}
       onDragStart={(e) => e.preventDefault()}
@@ -86,9 +86,9 @@ const Grid = ({
       {gridData.map((row, rowIndex) => (
         <div
           key={rowIndex}
-          className={`grid-row ${isTenthLine(rowIndex) ? "tenth-row" : ""} ${
-            rowIndex === centerRow ? "center-row" : ""
-          }`}
+          className={`grid-row flex ${
+            isTenthLine(rowIndex) ? "tenth-row" : ""
+          } ${rowIndex === centerRow ? "center-row" : ""}`}
         >
           {row.map((cell, colIndex) => (
             <div

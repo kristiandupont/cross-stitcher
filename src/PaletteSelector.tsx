@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import "./PaletteSelector.css";
 import React, { useState } from "react";
 
 const PaletteSelector = ({
@@ -19,28 +18,28 @@ const PaletteSelector = ({
   };
 
   return (
-    <div className="palette-selector">
-      <div className="colors">
+    <div className="flex flex-col space-y-4 items-center">
+      <div className="grid grid-cols-3 gap-2">
         {palette.map((color, index) => (
           <div
             key={index}
             className={clsx(
-              "w-6 h-6 m-2 border-2 inline-block cursor-pointer",
-              selectedIndex === index ? "border-black" : "border-white"
+              "w-6 h-6 border-2 cursor-pointer",
+              selectedIndex === index ? "border-white" : "border-transparent"
             )}
             style={{ backgroundColor: color }}
             onClick={() => setSelectedIndex(index)}
           />
         ))}
       </div>
-      <div className="add-color">
+      <div className="flex flex-col items-center">
         <input
           type="color"
           value={newColor}
           onChange={(e) => setNewColor(e.target.value)}
-          className="color-picker"
+          className=""
         />
-        <button onClick={addColorToPalette} className="add-color-btn">
+        <button onClick={addColorToPalette} className="">
           Add Color
         </button>
       </div>

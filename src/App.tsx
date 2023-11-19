@@ -16,15 +16,15 @@ const initialPalette = [
   "#e6ab02",
   "#a6761d",
   "#666666",
+  "#ffffff",
 ]; // Example colors
 
 const App = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Initialize grid data (50x50 cells, all null initially)
   const initialGridData = Array(50)
     .fill(null)
-    .map(() => Array(80).fill(null));
+    .map(() => Array(80).fill("#ffffff"));
 
   // State for the palette and grid data
   const [palette, setPalette] = useState(initialPalette);
@@ -52,31 +52,27 @@ const App = () => {
         <DropdownMenu />
       </nav>
 
-      <main className="flex flex-col items-center justify-center w-full flex-1">
-        {/* Palette Selector Component */}
-        {/* Pass palette and a function to modify it */}
-        <PaletteSelector
-          palette={palette}
-          setPalette={setPalette}
-          selectedIndex={selectedColorIndex}
-          setSelectedIndex={setSelectedColorIndex}
-        />
-
-        {/* Slider to adjust brush size */}
-        <div className="brush-size-slider">
-          <input
-            type="range"
-            id="brushSize"
-            min="0.5"
-            max="8"
-            step={0.1}
-            value={brushSize}
-            onChange={handleBrushSizeChange}
-          />
-          <label htmlFor="brushSize">Brush Size: {brushSize}</label>
+      <main className="flex flex-row items-center justify-between w-full flex-1 pt-8">
+        <div className="w-64 p-8 flex flex-col items-start justify-start">
+          <div className="bg-white/30 p-4 rounded-xl flex flex-col items-center">
+            <div className="h-48 w-6 flex justify-center">
+              <input
+                type="range"
+                className="w-48"
+                style={{ transform: "rotate(270deg)" }}
+                id="brushSize"
+                min="0.5"
+                max="8"
+                step={0.1}
+                value={brushSize}
+                onChange={handleBrushSizeChange}
+              />
+            </div>
+            <div>{brushSize}</div>
+          </div>
         </div>
 
-        <div className="bg-white/30 p-8">
+        <div className="bg-white/30 p-8 rounded-xl">
           <Grid
             gridData={gridData}
             updateGridCell={updateGridCell}
@@ -86,7 +82,18 @@ const App = () => {
           />
         </div>
 
-        <button onClick={() => setMenuOpen(!menuOpen)}>Menu</button>
+        <div className="w-64 p-8 flex flex-col items-end justify-start">
+          <div className="bg-white/30 p-4 rounded-xl flex flex-col items-center">
+            <PaletteSelector
+              palette={palette}
+              setPalette={setPalette}
+              selectedIndex={selectedColorIndex}
+              setSelectedIndex={setSelectedColorIndex}
+            />
+          </div>
+        </div>
+
+        {/* <button onClick={() => setMenuOpen(!menuOpen)}>Menu</button>
         {menuOpen && (
           <div className="menu">
             <PDFDownloadLink
@@ -98,7 +105,7 @@ const App = () => {
               }
             </PDFDownloadLink>
           </div>
-        )}
+        )} */}
       </main>
     </div>
   );
