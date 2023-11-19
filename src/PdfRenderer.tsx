@@ -1,7 +1,7 @@
 import { Document, Page, StyleSheet, Text, View } from "@react-pdf/renderer";
 import { FC } from "react";
 
-import { Editor } from "./App";
+import { Grid } from "./App";
 
 // Create styles
 const styles = StyleSheet.create({
@@ -16,13 +16,13 @@ const styles = StyleSheet.create({
   },
 });
 
+const isTenth = (index: number): boolean => index % 10 === 0;
+
 // Create Document Component
 const PdfRenderer: FC<{ gridData: Grid; palette: string[] }> = ({
   gridData,
   palette,
 }) => {
-  // Helper functions to check for tenth and center lines
-  const isTenth = (index) => index % 10 === 0;
   const centerRow = Math.floor(gridData.length / 2);
   const centerCol = Math.floor(gridData[0].length / 2);
 
