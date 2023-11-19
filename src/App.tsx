@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import PaletteSelector from "./PaletteSelector";
 import Grid from "./Grid";
-import { PDFDownloadLink } from "@react-pdf/renderer";
 
-import PdfRenderer from "./PdfRenderer";
 import DropdownMenu from "./DropdownMenu";
 
 // Initial palette colors (can be modified)
@@ -20,11 +18,9 @@ const initialPalette = [
 ]; // Example colors
 
 const App = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
-
   const initialGridData = Array(50)
     .fill(null)
-    .map(() => Array(80).fill("#ffffff"));
+    .map(() => Array(80).fill(null));
 
   // State for the palette and grid data
   const [palette, setPalette] = useState(initialPalette);
@@ -49,7 +45,7 @@ const App = () => {
     <div className="flex flex-col items-center justify-between w-full">
       <nav className="flex items-center justify-between w-full p-4 bg-white/60">
         <h1 className="text-2xl font-bold">Cross Stitch Pattern Maker</h1>
-        <DropdownMenu />
+        <DropdownMenu gridData={gridData} palette={palette} />
       </nav>
 
       <main className="flex flex-row items-start justify-between w-full flex-1 pt-8">
@@ -92,20 +88,6 @@ const App = () => {
             />
           </div>
         </div>
-
-        {/* <button onClick={() => setMenuOpen(!menuOpen)}>Menu</button>
-        {menuOpen && (
-          <div className="menu">
-            <PDFDownloadLink
-              document={<PdfRenderer gridData={gridData} palette={palette} />}
-              fileName="cross-stitch-pattern.pdf"
-            >
-              {({ blob, url, loading, error }) =>
-                loading ? "Loading document..." : "Download PDF"
-              }
-            </PDFDownloadLink>
-          </div>
-        )} */}
       </main>
     </div>
   );
