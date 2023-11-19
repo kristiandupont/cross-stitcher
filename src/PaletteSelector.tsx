@@ -24,7 +24,7 @@ const PaletteSelector = ({
           <div
             key={index}
             className={clsx(
-              "w-6 h-6 border-2 cursor-pointer",
+              "w-8 h-8 rounded drop-shadow border-2 cursor-pointer",
               selectedIndex === index ? "border-white" : "border-transparent"
             )}
             style={{ backgroundColor: color }}
