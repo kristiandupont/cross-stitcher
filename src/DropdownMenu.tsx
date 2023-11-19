@@ -3,9 +3,10 @@ import { ChevronDownIcon, PrinterIcon } from "@heroicons/react/20/solid";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { FC, Fragment } from "react";
 
+import { Editor } from "./App";
 import PdfRenderer from "./PdfRenderer";
 
-const DropdownMenu: FC<{ gridData: number[][]; palette: string[] }> = ({
+const DropdownMenu: FC<{ gridData: Grid; palette: string[] }> = ({
   gridData,
   palette,
 }) => (

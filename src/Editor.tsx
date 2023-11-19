@@ -1,6 +1,8 @@
-import "./Grid.css";
+import "./Editor.css";
 
 import { FC, useMemo, useState } from "react";
+
+import { Grid } from "./App";
 
 const createCursor = (radius: number): string => {
   const canvas = document.createElement("canvas");
@@ -18,8 +20,8 @@ const createCursor = (radius: number): string => {
 
 const isTenth = (index: number): boolean => index % 10 === 0;
 
-const Grid: FC<{
-  gridData: string[][];
+const Editor: FC<{
+  gridData: Grid;
   updateGridCell: (row: number, col: number, colorIndex: number) => void;
   palette: string[];
   selectedColorIndex: number;
@@ -107,4 +109,4 @@ const Grid: FC<{
   );
 };
 
-export default Grid;
+export default Editor;

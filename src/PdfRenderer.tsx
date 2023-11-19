@@ -1,5 +1,7 @@
 import { Document, Page, StyleSheet, Text, View } from "@react-pdf/renderer";
-import React, { FC } from "react";
+import { FC } from "react";
+
+import { Editor } from "./App";
 
 // Create styles
 const styles = StyleSheet.create({
@@ -15,7 +17,7 @@ const styles = StyleSheet.create({
 });
 
 // Create Document Component
-const PdfRenderer: FC<{ gridData: number[][]; palette: string[] }> = ({
+const PdfRenderer: FC<{ gridData: Grid; palette: string[] }> = ({
   gridData,
   palette,
 }) => {

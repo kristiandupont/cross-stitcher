@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 
 import DropdownMenu from "./DropdownMenu";
-import Grid from "./Grid";
+import Editor from "./Editor";
 import PaletteSelector from "./PaletteSelector";
 
 // Initial palette colors (can be modified)
@@ -17,14 +17,16 @@ const initialPalette = [
   "#ffffff",
 ];
 
+export type Grid = (number | null)[][];
+
 const App: FC = () => {
   const initialGridData = Array.from({ length: 50 })
     .fill(null)
-    .map(() => Array.from({ length: 80 }).fill(null));
+    .map(() => Array.from({ length: 80 }).fill(null)) as Grid;
 
   // State for the palette and grid data
-  const [palette, setPalette] = useState(initialPalette);
-  const [gridData, setGridData] = useState(initialGridData);
+  const [palette, setPalette] = useState<string[]>(initialPalette);
+  const [gridData, setGridData] = useState<Grid>(initialGridData);
 
   const [brushSize, setBrushSize] = useState(1); // Initialize brushSize state
 
@@ -69,7 +71,7 @@ const App: FC = () => {
         </div>
 
         <div className="bg-white/30 p-8 rounded-xl">
-          <Grid
+          <Editor
             gridData={gridData}
             updateGridCell={updateGridCell}
             palette={palette}
