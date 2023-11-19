@@ -44,7 +44,7 @@ const App = () => {
   return (
     <div className="flex flex-col items-center justify-between w-full">
       <nav className="flex items-center justify-between w-full p-4 bg-white/60">
-        <h1 className="text-2xl font-bold">Cross Stitch Pattern Maker</h1>
+        <h1 className="text-2xl font-bold">Cross Stitcher</h1>
         <DropdownMenu gridData={gridData} palette={palette} />
       </nav>
 
