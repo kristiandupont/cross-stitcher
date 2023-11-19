@@ -8,6 +8,6 @@ export default defineConfig({
     preserveSymlinks: true,
   },
   build: {
-    outDir: "./dist",
+    outDir: "./docs",
   },
 });
