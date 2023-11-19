@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 import DropdownMenu from "./DropdownMenu";
 import Editor from "./Editor";
@@ -19,22 +19,53 @@ const initialPalette = [
 
 export type Grid = (number | null)[][];
 
+function useDebouncedLocalStorageState(key, defaultValue, delay = 500) {
+  // Retrieve initial value from local storage or use default
+  const [value, setValue] = useState(() => {
+    const storedValue = localStorage.getItem(key);
+    return storedValue !== null ? JSON.parse(storedValue) : defaultValue;
+  });
+
+  // Debounce logic to update local storage
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      localStorage.setItem(key, JSON.stringify(value));
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, key, delay]);
+
+  return [value, setValue];
+}
+
 const App: FC = () => {
   const initialGridData = Array.from({ length: 50 })
     .fill(null)
     .map(() => Array.from({ length: 80 }).fill(null)) as Grid;
 
   // State for the palette and grid data
-  const [palette, setPalette] = useState<string[]>(initialPalette);
-  const [gridData, setGridData] = useState<Grid>(initialGridData);
+  const [palette, setPalette] = useDebouncedLocalStorageState(
+    "palette",
+    initialPalette
+  );
+  const [gridData, setGridData] = useDebouncedLocalStorageState(
+    "gridData",
+    initialGridData
+  );
 
-  const [brushSize, setBrushSize] = useState(1); // Initialize brushSize state
+  const [brushSize, setBrushSize] = useDebouncedLocalStorageState(
+    "brushSize",
+    1
+  );
 
   const handleBrushSizeChange = (event: { target: { value: any } }) => {
     setBrushSize(Number(event.target.value)); // Update brush size state
   };
 
-  const [selectedColorIndex, setSelectedColorIndex] = useState(0); // State to hold the selected color index [0, palette.length]
+  const [selectedColorIndex, setSelectedColorIndex] =
+    useDebouncedLocalStorageState("selectedColorIndex", 0);
 
   // Function to update grid data
   const updateGridCell = (row, col, colorIndex) => {
