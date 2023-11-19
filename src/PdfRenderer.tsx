@@ -56,7 +56,7 @@ const PdfRenderer: FC<{ gridData: Grid; palette: string[] }> = ({
                           : "1px solid #E4E4E4",
                     borderLeft:
                       cellIndex === centerCol
-                        ? "1px olid red"
+                        ? "1px solid red"
                         : isTenth(cellIndex)
                           ? "1px solid black"
                           : "1px solid #E4E4E4",
