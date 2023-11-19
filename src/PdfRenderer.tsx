@@ -1,5 +1,5 @@
-import React from "react";
-import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
+import { Document, Page, StyleSheet, Text, View } from "@react-pdf/renderer";
+import React, { FC } from "react";
 
 // Create styles
 const styles = StyleSheet.create({
@@ -15,9 +15,12 @@ const styles = StyleSheet.create({
 });
 
 // Create Document Component
-const PdfRenderer = ({ gridData, palette }) => {
+const PdfRenderer: FC<{ gridData: number[][]; palette: string[] }> = ({
+  gridData,
+  palette,
+}) => {
   // Helper functions to check for tenth and center lines
-  const isTenthLine = (index) => index % 10 === 0;
+  const isTenth = (index) => index % 10 === 0;
   const centerRow = Math.floor(gridData.length / 2);
   const centerCol = Math.floor(gridData[0].length / 2);
 
@@ -41,18 +44,18 @@ const PdfRenderer = ({ gridData, palette }) => {
                   style={{
                     width: cellSize,
                     height: cellSize,
-                    backgroundColor: cell !== null ? palette[cell] : "white",
+                    backgroundColor: cell === null ? "white" : palette[cell],
                     // Apply special styling for tenth and center lines
                     borderTop:
                       rowIndex === centerRow
                         ? "1px solid red"
-                        : isTenthLine(rowIndex)
+                        : isTenth(rowIndex)
                           ? "1px solid black"
                           : "1px solid #E4E4E4",
                     borderLeft:
                       cellIndex === centerCol
                         ? "1px olid red"
-                        : isTenthLine(cellIndex)
+                        : isTenth(cellIndex)
                           ? "1px solid black"
                           : "1px solid #E4E4E4",
                   }}

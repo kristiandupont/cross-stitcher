@@ -18,7 +18,7 @@ async function main() {
   ReactDOM.createRoot(root).render(
     <StrictMode>
       <App />
-    </StrictMode>
+    </StrictMode>,
   );
 }
 

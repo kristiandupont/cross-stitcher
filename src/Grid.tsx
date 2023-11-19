@@ -1,6 +1,6 @@
 import "./Grid.css";
 
-import React, { useMemo, useState } from "react";
+import { FC, useMemo, useState } from "react";
 
 const createCursor = (radius: number): string => {
   const canvas = document.createElement("canvas");
@@ -16,20 +16,19 @@ const createCursor = (radius: number): string => {
   return canvas.toDataURL("image/png");
 };
 
-const Grid = ({
-  gridData,
-  updateGridCell,
-  palette,
-  selectedColorIndex,
-  brushSize,
-}) => {
+const isTenth = (index: number): boolean => index % 10 === 0;
+
+const Grid: FC<{
+  gridData: string[][];
+  updateGridCell: (row: number, col: number, colorIndex: number) => void;
+  palette: string[];
+  selectedColorIndex: number;
+  brushSize: number;
+}> = ({ gridData, updateGridCell, palette, selectedColorIndex, brushSize }) => {
   const [isMouseDown, setIsMouseDown] = useState(false);
 
   const radius = brushSize * 8;
   const cursorDataURL = useMemo(() => createCursor(radius), [brushSize]);
-
-  // Function to check if it's a tenth line
-  const isTenthLine = (index) => index % 10 === 0;
 
   // Calculate the center row and column
   const centerRow = Math.floor(gridData.length / 2);
@@ -40,9 +39,7 @@ const Grid = ({
     updateCells(row, col);
   };
 
-  const handleMouseUp = () => {
-    setIsMouseDown(false);
-  };
+  const handleMouseUp = () => setIsMouseDown(false);
 
   const handleMouseMove = (row, col) => {
     if (isMouseDown) {
@@ -67,7 +64,7 @@ const Grid = ({
           newCol < gridData[0].length
         ) {
           // Calculate distance from the central cell to determine if it's within the circle
-          const distance = Math.sqrt(i * i + j * j);
+          const distance = Math.hypot(i, j);
           if (distance <= brushSize) {
             updateGridCell(newRow, newCol, selectedColorIndex);
           }
@@ -86,18 +83,18 @@ const Grid = ({
       {gridData.map((row, rowIndex) => (
         <div
           key={rowIndex}
-          className={`grid-row flex ${
-            isTenthLine(rowIndex) ? "tenth-row" : ""
-          } ${rowIndex === centerRow ? "center-row" : ""}`}
+          className={`grid-row flex ${isTenth(rowIndex) ? "tenth-row" : ""} ${
+            rowIndex === centerRow ? "center-row" : ""
+          }`}
         >
           {row.map((cell, colIndex) => (
             <div
               key={colIndex}
-              className={`grid-cell ${
-                isTenthLine(colIndex) ? "tenth-col" : ""
-              } ${colIndex === centerCol ? "center-col" : ""}`}
+              className={`grid-cell ${isTenth(colIndex) ? "tenth-col" : ""} ${
+                colIndex === centerCol ? "center-col" : ""
+              }`}
               style={{
-                backgroundColor: cell !== null ? palette[cell] : "transparent",
+                backgroundColor: cell === null ? "transparent" : palette[cell],
               }}
               onMouseDown={() => handleMouseDown(rowIndex, colIndex)}
               onMouseUp={handleMouseUp}

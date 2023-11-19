@@ -1,0 +1,18 @@
+{
+  "root": true,
+  "extends": ["@kristiandupont"],
+  "rules": {
+    "quotes": "off",
+    "unicorn/prefer-top-level-await": "off",
+    "unicorn/no-useless-undefined": "off"
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "parserOptions": {
+        "createDefaultProgram": true,
+        "project": "./tsconfig.json"
+      }
+    }
+  ]
+}

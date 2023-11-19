@@ -1,23 +1,22 @@
-import React, { useState, useRef } from "react";
+import { FC } from "react";
+
 import ColorPicker from "./ColorPicker";
 
-const PaletteSelector = ({
-  palette,
-  setPalette,
-  selectedIndex,
-  setSelectedIndex,
-}) => {
-  const hiddenColorInputRef = useRef(null); // Ref for the hidden color input
-
-  const addColorToPalette = (color) => {
+const PaletteSelector: FC<{
+  palette: string[];
+  setPalette: (palette: string[]) => void;
+  selectedIndex: number;
+  setSelectedIndex: (index: number) => void;
+}> = ({ palette, setPalette, selectedIndex, setSelectedIndex }) => {
+  const addColorToPalette = (color: string) => {
     if (color && !palette.includes(color)) {
       setPalette([...palette, color]);
     }
   };
 
-  const handleColorChange = (color) => {
+  const handleColorChange = (color: string) => {
     addColorToPalette(color);
-    setSelectedColorIndex(palette.length - 1);
+    setSelectedIndex(palette.length - 1);
   };
 
   return (

@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "vite --host"
+    "dev": "vite --host",
+    "lint": "eslint . -f visualstudio --report-unused-disable-directives --ext .js,.jsx,.ts,.tsx"
   },
   "keywords": [],
   "author": "",
