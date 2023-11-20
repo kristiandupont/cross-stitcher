@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"Error: no tests yet\"",
     "dev": "vite --host",
     "build": "vite build",
     "lint": "eslint . -f visualstudio --report-unused-disable-directives --ext .js,.jsx,.ts,.tsx"
