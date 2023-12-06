@@ -44,11 +44,11 @@ function useDebouncedLocalStorageState<T>(
   return [value, setValue];
 }
 
-const App: FC = () => {
-  const initialGridData = Array.from({ length: 50 })
-    .fill(null)
-    .map(() => Array.from({ length: 80 }).fill(null)) as Grid;
+const initialGridData = Array.from({ length: 80 })
+  .fill(null)
+  .map(() => Array.from({ length: 120 }).fill(null)) as Grid;
 
+const App: FC = () => {
   // State for the palette and grid data
   const [palette, setPalette] = useDebouncedLocalStorageState(
     "palette",

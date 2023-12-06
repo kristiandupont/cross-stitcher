@@ -1,5 +1,9 @@
 import { Menu, Transition } from "@headlessui/react";
-import { ChevronDownIcon, PrinterIcon } from "@heroicons/react/20/solid";
+import {
+  ArrowUturnLeftIcon,
+  ChevronDownIcon,
+  PrinterIcon,
+} from "@heroicons/react/20/solid";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { FC, Fragment } from "react";
 
@@ -55,6 +59,26 @@ const DropdownMenu: FC<{ gridData: Grid; palette: string[] }> = ({
                   )}
                 </PDFDownloadLink>
               </div>
+            )}
+          </Menu.Item>
+          <Menu.Item>
+            {({ active }) => (
+              <button
+                className="w-full"
+                onClick={() => {
+                  localStorage.clear();
+                  window.location.reload();
+                }}
+              >
+                <div
+                  className={`${
+                    active ? "bg-violet-500 text-white" : "text-gray-900"
+                  } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                >
+                  <ArrowUturnLeftIcon className="mr-2 h-5 w-5" />
+                  Clear
+                </div>
+              </button>
             )}
           </Menu.Item>
         </div>
