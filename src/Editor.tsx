@@ -2,7 +2,8 @@ import "./Editor.css";
 
 import { FC, useMemo, useState } from "react";
 
-import { Grid } from "./App";
+import { GridData } from "./App";
+import bg from "./fakkelmannen.png";
 
 const createCursor = (radius: number): string => {
   const canvas = document.createElement("canvas");
@@ -20,87 +21,111 @@ const createCursor = (radius: number): string => {
 
 const isTenth = (index: number): boolean => index % 10 === 0;
 
+function brushStroke(
+  gridData: GridData,
+  row: number,
+  col: number,
+  brushSize: number,
+  colorIndex: number
+): GridData {
+  const newGridData = [...gridData];
+  const min1 = Math.ceil(Math.max(brushSize, 1));
+
+  // Iterate over a square area around the central cell
+  for (let i = -min1; i <= min1; i++) {
+    for (let j = -min1; j <= min1; j++) {
+      const newRow = row + i;
+      const newCol = col + j;
+
+      // Check if the cell is within the grid boundaries
+      if (
+        newRow >= 0 &&
+        newRow < gridData.length &&
+        newCol >= 0 &&
+        newCol < gridData[0].length
+      ) {
+        // Calculate distance from the central cell to determine if it's within the circle
+        const distance = Math.hypot(i, j);
+        if (distance <= brushSize) {
+          newGridData[newRow][newCol] = colorIndex;
+        }
+      }
+    }
+  }
+
+  return newGridData;
+}
+
 const Editor: FC<{
-  gridData: Grid;
-  updateGridCell: (row: number, col: number, colorIndex: number) => void;
+  gridData: GridData;
+  setGridData: (gridData: GridData) => void;
   palette: string[];
   selectedColorIndex: number;
   brushSize: number;
-}> = ({ gridData, updateGridCell, palette, selectedColorIndex, brushSize }) => {
+}> = ({ gridData, setGridData, palette, selectedColorIndex, brushSize }) => {
   const [isMouseDown, setIsMouseDown] = useState(false);
 
   const radius = brushSize * 8;
   const cursorDataURL = useMemo(() => createCursor(radius), [brushSize]);
 
-  // Calculate the center row and column
-  const centerRow = Math.floor(gridData.length / 2);
-  const centerCol = Math.floor(gridData[0].length / 2);
+  const updateCells = (row: number, col: number) => {
+    const newGridData = brushStroke(
+      gridData,
+      row,
+      col,
+      brushSize,
+      selectedColorIndex
+    );
+    setGridData(newGridData);
+  };
 
-  const handleMouseDown = (row, col) => {
+  const handleMouseDown = (row: number, col: number) => {
     setIsMouseDown(true);
     updateCells(row, col);
   };
 
   const handleMouseUp = () => setIsMouseDown(false);
 
-  const handleMouseMove = (row, col) => {
+  const handleMouseMove = (row: number, col: number) => {
     if (isMouseDown) {
       updateCells(row, col);
     }
   };
 
-  const updateCells = (row, col) => {
-    const min1 = Math.ceil(Math.max(brushSize, 1));
+  // Calculate the center row and column
+  const centerRow = Math.floor(gridData.length / 2);
+  const centerCol = Math.floor(gridData[0].length / 2);
 
-    // Iterate over a square area around the central cell
-    for (let i = -min1; i <= min1; i++) {
-      for (let j = -min1; j <= min1; j++) {
-        const newRow = row + i;
-        const newCol = col + j;
-
-        // Check if the cell is within the grid boundaries
-        if (
-          newRow >= 0 &&
-          newRow < gridData.length &&
-          newCol >= 0 &&
-          newCol < gridData[0].length
-        ) {
-          // Calculate distance from the central cell to determine if it's within the circle
-          const distance = Math.hypot(i, j);
-          if (distance <= brushSize) {
-            updateGridCell(newRow, newCol, selectedColorIndex);
-          }
-        }
-      }
-    }
-  };
+  const style = useMemo(
+    () => ({
+      cursor: `url('${cursorDataURL}') ${radius} ${radius}, auto`,
+      backgroundImage: `url(${bg})`,
+    }),
+    [cursorDataURL, radius]
+  );
 
   return (
     <div
       className="flex flex-col select-none bg-white"
-      style={{ cursor: `url('${cursorDataURL}') ${radius} ${radius}, auto` }}
+      style={style}
       onMouseLeave={handleMouseUp}
       onDragStart={(e) => e.preventDefault()}
     >
       {gridData.map((row, rowIndex) => (
         <div
           key={rowIndex}
-          className={`grid-row flex ${isTenth(rowIndex) ? "tenth-row" : ""} ${
-            rowIndex === centerRow ? "center-row" : ""
-          }`}
+          className={`grid-row flex ${isTenth(rowIndex) ? "tenth-row" : ""}`}
         >
           {row.map((cell, colIndex) => (
             <div
               key={colIndex}
-              className={`grid-cell ${isTenth(colIndex) ? "tenth-col" : ""} ${
-                colIndex === centerCol ? "center-col" : ""
-              }`}
+              className={`grid-cell ${isTenth(colIndex) ? "tenth-col" : ""}`}
               style={{
                 backgroundColor: cell === null ? "transparent" : palette[cell],
               }}
               onMouseDown={() => handleMouseDown(rowIndex, colIndex)}
-              onMouseUp={handleMouseUp}
               onMouseMove={() => handleMouseMove(rowIndex, colIndex)}
+              onMouseUp={handleMouseUp}
             />
           ))}
         </div>

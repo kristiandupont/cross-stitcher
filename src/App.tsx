@@ -4,6 +4,9 @@ import DropdownMenu from "./DropdownMenu";
 import Editor from "./Editor";
 import PaletteSelector from "./PaletteSelector";
 
+const initialWidth = 78;
+const initialHeight = 112;
+
 // Initial palette colors (can be modified)
 const initialPalette = [
   "#1b9e77",
@@ -17,7 +20,7 @@ const initialPalette = [
   "#ffffff",
 ];
 
-export type Grid = (number | null)[][];
+export type GridData = (number | null)[][];
 
 function useDebouncedLocalStorageState<T>(
   key: string,
@@ -44,9 +47,9 @@ function useDebouncedLocalStorageState<T>(
   return [value, setValue];
 }
 
-const initialGridData = Array.from({ length: 80 })
+const initialGridData = Array.from({ length: initialHeight })
   .fill(null)
-  .map(() => Array.from({ length: 120 }).fill(null)) as Grid;
+  .map(() => Array.from({ length: initialWidth }).fill(null)) as GridData;
 
 const App: FC = () => {
   // State for the palette and grid data
@@ -71,12 +74,12 @@ const App: FC = () => {
   const [selectedColorIndex, setSelectedColorIndex] =
     useDebouncedLocalStorageState("selectedColorIndex", 0);
 
-  // Function to update grid data
-  const updateGridCell = (row, col, colorIndex) => {
-    const newGridData = [...gridData];
-    newGridData[row][col] = colorIndex;
-    setGridData(newGridData);
-  };
+  // // Function to update grid data
+  // const updateGridCell = (row, col, colorIndex) => {
+  //   const newGridData = [...gridData];
+  //   newGridData[row][col] = colorIndex;
+  //   setGridData(newGridData);
+  // };
 
   return (
     <div className="flex flex-col items-center justify-between w-full">
@@ -105,10 +108,10 @@ const App: FC = () => {
           </div>
         </div>
 
-        <div className="bg-white/30 p-8 rounded-xl">
+        <div className="bg-white/30 p-8 rounded-xl max-w-[800px] max-h-[600px] overflow-auto">
           <Editor
             gridData={gridData}
-            updateGridCell={updateGridCell}
+            setGridData={setGridData}
             palette={palette}
             selectedColorIndex={selectedColorIndex}
             brushSize={brushSize}

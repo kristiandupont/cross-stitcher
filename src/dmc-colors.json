@@ -1,0 +1,1802 @@
+[
+  {
+    "id": "000",
+    "name": "blanc White",
+    "color": "FFFFFF"
+  },
+  {
+    "id": "208",
+    "name": "Lavender-VY DK",
+    "color": "945B80"
+  },
+  {
+    "id": "209",
+    "name": "Lavender-DK",
+    "color": "CE94BA"
+  },
+  {
+    "id": "210",
+    "name": "Lavender-MD",
+    "color": "ECCFE1"
+  },
+  {
+    "id": "211",
+    "name": "Lavender-LT",
+    "color": "F3DAE4"
+  },
+  {
+    "id": "221",
+    "name": "Shell Pink-VY DK",
+    "color": "9C294A"
+  },
+  {
+    "id": "223",
+    "name": "Shell Pink-LT",
+    "color": "DB8073"
+  },
+  {
+    "id": "224",
+    "name": "Shell Pink-VY LT",
+    "color": "FFC7B0"
+  },
+  {
+    "id": "225",
+    "name": "Shell Pink-ULT VY L",
+    "color": "FFF0E4"
+  },
+  {
+    "id": "300",
+    "name": "Mahogany-VY DK",
+    "color": "8F3926"
+  },
+  {
+    "id": "301",
+    "name": "Mahogany-MD",
+    "color": "D16654"
+  },
+  {
+    "id": "304",
+    "name": "Christmas Red-MD",
+    "color": "BC0061"
+  },
+  {
+    "id": "307",
+    "name": "Lemon",
+    "color": "FFE76D"
+  },
+  {
+    "id": "309",
+    "name": "Rose-DP",
+    "color": "D62B5B"
+  },
+  {
+    "id": "310",
+    "name": "Black",
+    "color": "000000"
+  },
+  {
+    "id": "311",
+    "name": "Navy Blue-MD",
+    "color": "004F61"
+  },
+  {
+    "id": "312",
+    "name": "Navy Blue-LT",
+    "color": "3A5467"
+  },
+  {
+    "id": "315",
+    "name": "Antique Mauve-VY DK",
+    "color": "A35A5B"
+  },
+  {
+    "id": "316",
+    "name": "Antique Mauve-MD",
+    "color": "DC8D8D"
+  },
+  {
+    "id": "317",
+    "name": "Pewter Grey",
+    "color": "A78B88"
+  },
+  {
+    "id": "318",
+    "name": "Steel Grey - LT",
+    "color": "C5C6BE"
+  },
+  {
+    "id": "319",
+    "name": "Pistachio Grn-VY DK",
+    "color": "555F52"
+  },
+  {
+    "id": "320",
+    "name": "Pistachio Green-MD",
+    "color": "8A9978"
+  },
+  {
+    "id": "321",
+    "name": "Christmas Red",
+    "color": "E71261"
+  },
+  {
+    "id": "322",
+    "name": "Navy Blue-VY LT",
+    "color": "516D87"
+  },
+  {
+    "id": "326",
+    "name": "Rose-VY DP",
+    "color": "BC1641"
+  },
+  {
+    "id": "327",
+    "name": "Violet-DK",
+    "color": "3D0067"
+  },
+  {
+    "id": "333",
+    "name": "Blue Violet-VY DK",
+    "color": "7F5482"
+  },
+  {
+    "id": "334",
+    "name": "Baby Blue-MD",
+    "color": "738CAA"
+  },
+  {
+    "id": "335",
+    "name": "Rose",
+    "color": "DB244F"
+  },
+  {
+    "id": "336",
+    "name": "Navy Blue",
+    "color": "244967"
+  },
+  {
+    "id": "340",
+    "name": "Blue Violet-MD",
+    "color": "A279A4"
+  },
+  {
+    "id": "341",
+    "name": "Blue Violet-LT",
+    "color": "91B4C5"
+  },
+  {
+    "id": "347",
+    "name": "Salmon-VY DK",
+    "color": "C22443"
+  },
+  {
+    "id": "349",
+    "name": "Coral-DK",
+    "color": "DC3D5B"
+  },
+  {
+    "id": "350",
+    "name": "Coral-MD",
+    "color": "ED455A"
+  },
+  {
+    "id": "351",
+    "name": "Coral",
+    "color": "FF8087"
+  },
+  {
+    "id": "352",
+    "name": "Coral-LT",
+    "color": "FF9D90"
+  },
+  {
+    "id": "353",
+    "name": "Peach Flesh",
+    "color": "FFC4B8"
+  },
+  {
+    "id": "355",
+    "name": "Terra Cotta-DK",
+    "color": "BD492F"
+  },
+  {
+    "id": "356",
+    "name": "Terra Cotta-MD",
+    "color": "E2725B"
+  },
+  {
+    "id": "367",
+    "name": "Pistachio Green-DK",
+    "color": "5F705B"
+  },
+  {
+    "id": "368",
+    "name": "Pistachio Green-LT",
+    "color": "B5CEA2"
+  },
+  {
+    "id": "369",
+    "name": "Pistachio Grn-VY LT",
+    "color": "F3FAD1"
+  },
+  {
+    "id": "370",
+    "name": "Mustard - MD",
+    "color": "B88A57"
+  },
+  {
+    "id": "371",
+    "name": "Mustard",
+    "color": "C49B64"
+  },
+  {
+    "id": "372",
+    "name": "Mustard - LT",
+    "color": "CBA26B"
+  },
+  {
+    "id": "400",
+    "name": "Mahogany-DK",
+    "color": "9D3C27"
+  },
+  {
+    "id": "402",
+    "name": "Mahogany-VY LT",
+    "color": "FFBEA4"
+  },
+  {
+    "id": "407",
+    "name": "Sportsman Flsh-VY D",
+    "color": "C2654C"
+  },
+  {
+    "id": "413",
+    "name": "Pewter Grey - DK",
+    "color": "6D5F5F"
+  },
+  {
+    "id": "414",
+    "name": "Steel Grey - DK",
+    "color": "A78B88"
+  },
+  {
+    "id": "415",
+    "name": "Pearl Grey",
+    "color": "DDDDDA"
+  },
+  {
+    "id": "420",
+    "name": "Hazel Nut Brown-DK",
+    "color": "8C5B2B"
+  },
+  {
+    "id": "422",
+    "name": "Hazel Nut Brown-LT",
+    "color": "EDAC7B"
+  },
+  {
+    "id": "433",
+    "name": "Brown-MD",
+    "color": "975414"
+  },
+  {
+    "id": "434",
+    "name": "Brown-LT",
+    "color": "B26746"
+  },
+  {
+    "id": "435",
+    "name": "Brown-VY LT",
+    "color": "BB6B39"
+  },
+  {
+    "id": "436",
+    "name": "Tan",
+    "color": "E79873"
+  },
+  {
+    "id": "437",
+    "name": "Tan-LT",
+    "color": "EEAB79"
+  },
+  {
+    "id": "444",
+    "name": "Lemon-DK",
+    "color": "FFB000"
+  },
+  {
+    "id": "445",
+    "name": "Lemon-LT",
+    "color": "FFFFBE"
+  },
+  {
+    "id": "451",
+    "name": "Shell Grey - DK",
+    "color": "B3978F"
+  },
+  {
+    "id": "452",
+    "name": "Shell Grey - MD",
+    "color": "D2B9AF"
+  },
+  {
+    "id": "453",
+    "name": "Shell Grey - LT",
+    "color": "EBCFB9"
+  },
+  {
+    "id": "469",
+    "name": "Avocado Green",
+    "color": "74725C"
+  },
+  {
+    "id": "470",
+    "name": "Avocado Green-LT",
+    "color": "858F6C"
+  },
+  {
+    "id": "471",
+    "name": "Avocado Green-VY LT",
+    "color": "B0BB8C"
+  },
+  {
+    "id": "472",
+    "name": "Avocado Green-ULT L",
+    "color": "EEFFB6"
+  },
+  {
+    "id": "498",
+    "name": "Christmas Red-LT",
+    "color": "BB0061"
+  },
+  {
+    "id": "500",
+    "name": "Blue Green-VY DK",
+    "color": "2B3929"
+  },
+  {
+    "id": "501",
+    "name": "Blue Green-DK",
+    "color": "435549"
+  },
+  {
+    "id": "502",
+    "name": "Blue Green",
+    "color": "869E86"
+  },
+  {
+    "id": "503",
+    "name": "Blue Green-MD",
+    "color": "C3CEB7"
+  },
+  {
+    "id": "504",
+    "name": "Blue Green-LT",
+    "color": "CEDDC1"
+  },
+  {
+    "id": "517",
+    "name": "Wedgewood-MD",
+    "color": "107F87"
+  },
+  {
+    "id": "518",
+    "name": "Wedgewood-LT",
+    "color": "66949A"
+  },
+  {
+    "id": "519",
+    "name": "Sky Blue",
+    "color": "C2D1CF"
+  },
+  {
+    "id": "520",
+    "name": "Fern Green-DK",
+    "color": "374912"
+  },
+  {
+    "id": "522",
+    "name": "Fern Green",
+    "color": "9FA98E"
+  },
+  {
+    "id": "523",
+    "name": "Fern Green-LT",
+    "color": "ACB78E"
+  },
+  {
+    "id": "524",
+    "name": "Fern Green-VY LT",
+    "color": "CDB69E"
+  },
+  {
+    "id": "535",
+    "name": "Ash Grey - VY LT",
+    "color": "555559"
+  },
+  {
+    "id": "543",
+    "name": "Beige Brown-UL VY L",
+    "color": "EFD6BC"
+  },
+  {
+    "id": "550",
+    "name": "Violet-VY LT",
+    "color": "6D1261"
+  },
+  {
+    "id": "552",
+    "name": "Violet-MD",
+    "color": "925582"
+  },
+  {
+    "id": "553",
+    "name": "Violet",
+    "color": "A06492"
+  },
+  {
+    "id": "554",
+    "name": "Violet-LT",
+    "color": "F3CEE1"
+  },
+  {
+    "id": "561",
+    "name": "Jade-VY DK",
+    "color": "3B604C"
+  },
+  {
+    "id": "562",
+    "name": "Jade-MD",
+    "color": "618661"
+  },
+  {
+    "id": "563",
+    "name": "Jade-LT",
+    "color": "B6D4B4"
+  },
+  {
+    "id": "564",
+    "name": "Jade-VY LT",
+    "color": "D6E6CC"
+  },
+  {
+    "id": "580",
+    "name": "Moss Green-DK",
+    "color": "006700"
+  },
+  {
+    "id": "581",
+    "name": "Moss Green",
+    "color": "979831"
+  },
+  {
+    "id": "597",
+    "name": "Turquoise",
+    "color": "809784"
+  },
+  {
+    "id": "598",
+    "name": "Turquoise-LT",
+    "color": "D0DFCD"
+  },
+  {
+    "id": "600",
+    "name": "Cranberry-VY DK",
+    "color": "D0396A"
+  },
+  {
+    "id": "601",
+    "name": "Cranberry-DK",
+    "color": "DE3969"
+  },
+  {
+    "id": "602",
+    "name": "Cranberry-MD",
+    "color": "E7547A"
+  },
+  {
+    "id": "603",
+    "name": "Cranberry",
+    "color": "FF738C"
+  },
+  {
+    "id": "604",
+    "name": "Cranberry-LT",
+    "color": "FFBDCA"
+  },
+  {
+    "id": "605",
+    "name": "Cranberry-VY LT",
+    "color": "FFCFD6"
+  },
+  {
+    "id": "606",
+    "name": "Bright Orange-Red",
+    "color": "FF0000"
+  },
+  {
+    "id": "608",
+    "name": "Bright Orange",
+    "color": "FF5B00"
+  },
+  {
+    "id": "610",
+    "name": "Drab Brown - VY DK",
+    "color": "976854"
+  },
+  {
+    "id": "611",
+    "name": "Drab Brown - DK",
+    "color": "9E6D5B"
+  },
+  {
+    "id": "612",
+    "name": "Drab Brown - MD",
+    "color": "CB9867"
+  },
+  {
+    "id": "613",
+    "name": "Drab Brown - LT",
+    "color": "DBB07A"
+  },
+  {
+    "id": "632",
+    "name": "Negro Flesh-MD",
+    "color": "A24D34"
+  },
+  {
+    "id": "640",
+    "name": "Beige Grey - VY DK",
+    "color": "A3A39D"
+  },
+  {
+    "id": "642",
+    "name": "Beige Grey - DK",
+    "color": "AEB0AA"
+  },
+  {
+    "id": "644",
+    "name": "Beige Grey-MD",
+    "color": "E0E0D7"
+  },
+  {
+    "id": "645",
+    "name": "Beaver Grey - VY DK",
+    "color": "717171"
+  },
+  {
+    "id": "646",
+    "name": "Beaver Grey-DK",
+    "color": "797979"
+  },
+  {
+    "id": "647",
+    "name": "Beaver Grey - MD",
+    "color": "BEBEB9"
+  },
+  {
+    "id": "648",
+    "name": "Beaver Grey-LT",
+    "color": "CACACA"
+  },
+  {
+    "id": "666",
+    "name": "Christmas Red-LT",
+    "color": "D52756"
+  },
+  {
+    "id": "676",
+    "name": "Old Gold-LT",
+    "color": "FFCE9E"
+  },
+  {
+    "id": "677",
+    "name": "Old Gold-VY LT",
+    "color": "FFE7B6"
+  },
+  {
+    "id": "680",
+    "name": "Old Gold-DK",
+    "color": "D18C67"
+  },
+  {
+    "id": "699",
+    "name": "Chirstmas Green",
+    "color": "005B06"
+  },
+  {
+    "id": "700",
+    "name": "Christmas Green-BRT",
+    "color": "00602F"
+  },
+  {
+    "id": "701",
+    "name": "Christmas Green-LT",
+    "color": "4F6C45"
+  },
+  {
+    "id": "702",
+    "name": "Kelly Green",
+    "color": "4F7942"
+  },
+  {
+    "id": "703",
+    "name": "Chartreuse",
+    "color": "79904C"
+  },
+  {
+    "id": "704",
+    "name": "Chartreuse-BRT",
+    "color": "A5A467"
+  },
+  {
+    "id": "712",
+    "name": "Cream",
+    "color": "F5F0DB"
+  },
+  {
+    "id": "718",
+    "name": "Plum",
+    "color": "DB3779"
+  },
+  {
+    "id": "720",
+    "name": "Orange Spice-DK",
+    "color": "C8242B"
+  },
+  {
+    "id": "721",
+    "name": "Orange Spice-MD",
+    "color": "FF7361"
+  },
+  {
+    "id": "722",
+    "name": "Orange Spice-LT",
+    "color": "FF926D"
+  },
+  {
+    "id": "725",
+    "name": "Topaz",
+    "color": "FFC87C"
+  },
+  {
+    "id": "726",
+    "name": "Topaz-LT",
+    "color": "FFE080"
+  },
+  {
+    "id": "727",
+    "name": "Topaz-VY LT",
+    "color": "FFEBA8"
+  },
+  {
+    "id": "729",
+    "name": "Old Gold-MD",
+    "color": "F3B080"
+  },
+  {
+    "id": "730",
+    "name": "Olive Green-VY DK",
+    "color": "846600"
+  },
+  {
+    "id": "731",
+    "name": "Olive Green-DK",
+    "color": "8C6700"
+  },
+  {
+    "id": "732",
+    "name": "Olive Green",
+    "color": "916800"
+  },
+  {
+    "id": "733",
+    "name": "Olive Green-MD",
+    "color": "CE9B61"
+  },
+  {
+    "id": "734",
+    "name": "Olive Green-LT",
+    "color": "DDA66B"
+  },
+  {
+    "id": "738",
+    "name": "Tan-VY LT",
+    "color": "F4C38B"
+  },
+  {
+    "id": "739",
+    "name": "Tan-ULT VY LT",
+    "color": "F4E9CA"
+  },
+  {
+    "id": "740",
+    "name": "Tangerine",
+    "color": "FF8313"
+  },
+  {
+    "id": "741",
+    "name": "Tangerine-MD",
+    "color": "FF8E04"
+  },
+  {
+    "id": "742",
+    "name": "Tangerine-LT",
+    "color": "FFB755"
+  },
+  {
+    "id": "743",
+    "name": "Yellow-MD",
+    "color": "FFE692"
+  },
+  {
+    "id": "744",
+    "name": "Yellow-PALE",
+    "color": "FFEFAA"
+  },
+  {
+    "id": "745",
+    "name": "Yellow-LT PALE",
+    "color": "FFF0C5"
+  },
+  {
+    "id": "746",
+    "name": "Off White",
+    "color": "F6EADB"
+  },
+  {
+    "id": "747",
+    "name": "Sky Blue-VY LT",
+    "color": "F0F7EF"
+  },
+  {
+    "id": "754",
+    "name": "Peach Flesh-LT",
+    "color": "FBE3D1"
+  },
+  {
+    "id": "758",
+    "name": "Terra Cotta-VY LT",
+    "color": "FFB193"
+  },
+  {
+    "id": "760",
+    "name": "Salmon",
+    "color": "F9A092"
+  },
+  {
+    "id": "761",
+    "name": "Salmon-LT",
+    "color": "FFC9BC"
+  },
+  {
+    "id": "762",
+    "name": "Pearl Grey - VY LT",
+    "color": "E8E8E5"
+  },
+  {
+    "id": "772",
+    "name": "Pine Green--LT",
+    "color": "E7F9CB"
+  },
+  {
+    "id": "775",
+    "name": "Baby Blue-VY LT",
+    "color": "F7F6F8"
+  },
+  {
+    "id": "776",
+    "name": "Pink-MD",
+    "color": "FFB1AE"
+  },
+  {
+    "id": "778",
+    "name": "Antique Mauve-VY LT",
+    "color": "FFC7B8"
+  },
+  {
+    "id": "780",
+    "name": "Topaz-ULT VY DK",
+    "color": "B5622E"
+  },
+  {
+    "id": "781",
+    "name": "Topaz-VY DK",
+    "color": "B56B38"
+  },
+  {
+    "id": "782",
+    "name": "Topaz-DK",
+    "color": "CC7742"
+  },
+  {
+    "id": "783",
+    "name": "Topaz-MD",
+    "color": "E19255"
+  },
+  {
+    "id": "791",
+    "name": "Cornflower Blue-VYD",
+    "color": "47375D"
+  },
+  {
+    "id": "792",
+    "name": "Cornflower Blue-DK",
+    "color": "616180"
+  },
+  {
+    "id": "793",
+    "name": "Cornflower Blue-MD",
+    "color": "938BA4"
+  },
+  {
+    "id": "794",
+    "name": "Cornflower Blue-LT",
+    "color": "BBD0DA"
+  },
+  {
+    "id": "796",
+    "name": "Royal Blue-DK",
+    "color": "1E3A5F"
+  },
+  {
+    "id": "797",
+    "name": "Royal Blue",
+    "color": "1E4263"
+  },
+  {
+    "id": "798",
+    "name": "Delft-DK",
+    "color": "67738D"
+  },
+  {
+    "id": "799",
+    "name": "Delft-MD",
+    "color": "849CB6"
+  },
+  {
+    "id": "800",
+    "name": "Delft-PALE",
+    "color": "E9EEE9"
+  },
+  {
+    "id": "801",
+    "name": "Coffee Brown-DK",
+    "color": "7B4714"
+  },
+  {
+    "id": "806",
+    "name": "Peacock Blue-DK",
+    "color": "1E8285"
+  },
+  {
+    "id": "807",
+    "name": "Peacock Blue",
+    "color": "80A7A0"
+  },
+  {
+    "id": "809",
+    "name": "Delft",
+    "color": "BEC1CD"
+  },
+  {
+    "id": "813",
+    "name": "Blue-LT",
+    "color": "AFC3CD"
+  },
+  {
+    "id": "814",
+    "name": "Garnet-DK",
+    "color": "A20058"
+  },
+  {
+    "id": "815",
+    "name": "Garnet-MD",
+    "color": "A6005B"
+  },
+  {
+    "id": "816",
+    "name": "Garnet",
+    "color": "B3005B"
+  },
+  {
+    "id": "817",
+    "name": "Coral Red-VY DK",
+    "color": "DB1855"
+  },
+  {
+    "id": "818",
+    "name": "Baby Pink",
+    "color": "FFEAEB"
+  },
+  {
+    "id": "819",
+    "name": "Baby Pink-LT",
+    "color": "F8F7DD"
+  },
+  {
+    "id": "820",
+    "name": "Royal Blue-VY DK",
+    "color": "1E3655"
+  },
+  {
+    "id": "822",
+    "name": "Beige Grey-LT",
+    "color": "F2EADB"
+  },
+  {
+    "id": "823",
+    "name": "Navy Blue-DK",
+    "color": "000049"
+  },
+  {
+    "id": "824",
+    "name": "Blue-VY DK",
+    "color": "476174"
+  },
+  {
+    "id": "825",
+    "name": "Blue-DK",
+    "color": "556C80"
+  },
+  {
+    "id": "826",
+    "name": "Blue-MD",
+    "color": "738A99"
+  },
+  {
+    "id": "827",
+    "name": "Blue-VY LT",
+    "color": "D5E7E8"
+  },
+  {
+    "id": "828",
+    "name": "Blue-ULT VY LT",
+    "color": "EDF7EE"
+  },
+  {
+    "id": "829",
+    "name": "Golden Olive-VY DK",
+    "color": "825A08"
+  },
+  {
+    "id": "830",
+    "name": "Golden Olive-DK",
+    "color": "885F12"
+  },
+  {
+    "id": "831",
+    "name": "Golden Olive-MD",
+    "color": "906712"
+  },
+  {
+    "id": "832",
+    "name": "Golden Olive",
+    "color": "B27737"
+  },
+  {
+    "id": "833",
+    "name": "Golden Olive-LT",
+    "color": "DBB680"
+  },
+  {
+    "id": "834",
+    "name": "Golden Olive-VY LT",
+    "color": "F2D18E"
+  },
+  {
+    "id": "838",
+    "name": "Beige Brown-VY DK",
+    "color": "5E381B"
+  },
+  {
+    "id": "839",
+    "name": "Beige Brown-DK",
+    "color": "6D4227"
+  },
+  {
+    "id": "840",
+    "name": "Beige Brown-MD",
+    "color": "80551E"
+  },
+  {
+    "id": "841",
+    "name": "Beige Brown-LT",
+    "color": "BC866B"
+  },
+  {
+    "id": "842",
+    "name": "Beige Brown-VY LT",
+    "color": "DBC2A4"
+  },
+  {
+    "id": "844",
+    "name": "Beaver Brown -ULT D",
+    "color": "6B6766"
+  },
+  {
+    "id": "868",
+    "name": "Hazel Nut Brown-VYD",
+    "color": "995C30"
+  },
+  {
+    "id": "869",
+    "name": "Hazel Nut Brn-VY DK",
+    "color": "995C30"
+  },
+  {
+    "id": "890",
+    "name": "Pistachio Grn-ULT D",
+    "color": "4F564C"
+  },
+  {
+    "id": "891",
+    "name": "Carnation-DK",
+    "color": "F13154"
+  },
+  {
+    "id": "892",
+    "name": "Carnation-MD",
+    "color": "F95A61"
+  },
+  {
+    "id": "893",
+    "name": "Carnation-LT",
+    "color": "F3959D"
+  },
+  {
+    "id": "894",
+    "name": "Carnation-VY LT",
+    "color": "FFC2BF"
+  },
+  {
+    "id": "895",
+    "name": "Hunter Green-VY DK",
+    "color": "595C4E"
+  },
+  {
+    "id": "898",
+    "name": "Coffee Brown-VY DK",
+    "color": "763713"
+  },
+  {
+    "id": "899",
+    "name": "Rose-MD",
+    "color": "E96D73"
+  },
+  {
+    "id": "900",
+    "name": "Burnt Orange-DK",
+    "color": "CE2B00"
+  },
+  {
+    "id": "902",
+    "name": "Granet-VY DK",
+    "color": "8A184D"
+  },
+  {
+    "id": "904",
+    "name": "Parrot Green-VY DK",
+    "color": "4E5F39"
+  },
+  {
+    "id": "905",
+    "name": "Parrot Green-DK",
+    "color": "627739"
+  },
+  {
+    "id": "906",
+    "name": "Parrot Green-MD",
+    "color": "8FA359"
+  },
+  {
+    "id": "907",
+    "name": "Parrot Green-LT",
+    "color": "B9C866"
+  },
+  {
+    "id": "909",
+    "name": "Emerald Green-VY DK",
+    "color": "316955"
+  },
+  {
+    "id": "910",
+    "name": "Emerald Green-DK",
+    "color": "30745B"
+  },
+  {
+    "id": "911",
+    "name": "Emerald Green-MD",
+    "color": "318061"
+  },
+  {
+    "id": "912",
+    "name": "Emerald Green-LT",
+    "color": "739E73"
+  },
+  {
+    "id": "913",
+    "name": "Nile Green-MD",
+    "color": "99BC95"
+  },
+  {
+    "id": "915",
+    "name": "Plum-DK",
+    "color": "AA185B"
+  },
+  {
+    "id": "917",
+    "name": "Plum-MD",
+    "color": "AB165F"
+  },
+  {
+    "id": "918",
+    "name": "Red Copper-DK",
+    "color": "A8444C"
+  },
+  {
+    "id": "919",
+    "name": "Red Copper",
+    "color": "B44B52"
+  },
+  {
+    "id": "920",
+    "name": "Copper-MD",
+    "color": "C55E58"
+  },
+  {
+    "id": "921",
+    "name": "Copper",
+    "color": "CE675B"
+  },
+  {
+    "id": "922",
+    "name": "Copper-LT",
+    "color": "ED8673"
+  },
+  {
+    "id": "924",
+    "name": "Grey Green--VY DK",
+    "color": "566364"
+  },
+  {
+    "id": "926",
+    "name": "Grey Green-LT",
+    "color": "607473"
+  },
+  {
+    "id": "927",
+    "name": "Grey Green-LT",
+    "color": "C8C6C2"
+  },
+  {
+    "id": "928",
+    "name": "Grey Green--VY LT",
+    "color": "E1E0D8"
+  },
+  {
+    "id": "930",
+    "name": "Antique Blue-DK",
+    "color": "667A8C"
+  },
+  {
+    "id": "931",
+    "name": "Antique Blue-MD",
+    "color": "7C8791"
+  },
+  {
+    "id": "932",
+    "name": "Antique Blue-LT",
+    "color": "B6BAC2"
+  },
+  {
+    "id": "934",
+    "name": "Black Avocado Green",
+    "color": "3E3B28"
+  },
+  {
+    "id": "935",
+    "name": "Avocado Green-DK",
+    "color": "433F2F"
+  },
+  {
+    "id": "936",
+    "name": "Avocado Green--VY D",
+    "color": "454531"
+  },
+  {
+    "id": "937",
+    "name": "Avocado Green-MD",
+    "color": "495637"
+  },
+  {
+    "id": "938",
+    "name": "Coffee Brown-ULT DK",
+    "color": "632710"
+  },
+  {
+    "id": "939",
+    "name": "Navy Blue-Vy DK",
+    "color": "000031"
+  },
+  {
+    "id": "943",
+    "name": "Aquamarine-MD",
+    "color": "00A275"
+  },
+  {
+    "id": "945",
+    "name": "Flesh-MD",
+    "color": "FFCEA4"
+  },
+  {
+    "id": "946",
+    "name": "Burnt Orange-MD",
+    "color": "F44900"
+  },
+  {
+    "id": "947",
+    "name": "Burnt Orange",
+    "color": "FF5B00"
+  },
+  {
+    "id": "948",
+    "name": "Peach Flesh-VY LT",
+    "color": "FFF3E7"
+  },
+  {
+    "id": "950",
+    "name": "Sportsman Flesh",
+    "color": "EFA27F"
+  },
+  {
+    "id": "951",
+    "name": "Flesh",
+    "color": "FFE5BC"
+  },
+  {
+    "id": "954",
+    "name": "Nile Green",
+    "color": "AAD5A4"
+  },
+  {
+    "id": "955",
+    "name": "Nile Green-LT",
+    "color": "D6E6CC"
+  },
+  {
+    "id": "956",
+    "name": "Geranium",
+    "color": "FF6D73"
+  },
+  {
+    "id": "957",
+    "name": "Gernanium-PALE",
+    "color": "FFCCD0"
+  },
+  {
+    "id": "958",
+    "name": "Sea Green-DK",
+    "color": "00A082"
+  },
+  {
+    "id": "959",
+    "name": "Sea Green-MD",
+    "color": "ABCEB1"
+  },
+  {
+    "id": "961",
+    "name": "Dusty Rose-DK",
+    "color": "F36C7B"
+  },
+  {
+    "id": "962",
+    "name": "Dusty Rose-MD",
+    "color": "FD868D"
+  },
+  {
+    "id": "963",
+    "name": "Dusty Rose-ULT VY L",
+    "color": "FFE9E9"
+  },
+  {
+    "id": "964",
+    "name": "Sea Green-LT",
+    "color": "D0E0D2"
+  },
+  {
+    "id": "966",
+    "name": "Baby Green-MD",
+    "color": "CED5B0"
+  },
+  {
+    "id": "970",
+    "name": "Pumpkin-LT",
+    "color": "FF7518"
+  },
+  {
+    "id": "971",
+    "name": "Pumpkin",
+    "color": "FF6A00"
+  },
+  {
+    "id": "972",
+    "name": "Canary-DP",
+    "color": "FF9200"
+  },
+  {
+    "id": "973",
+    "name": "Canary-BRT",
+    "color": "FFC243"
+  },
+  {
+    "id": "975",
+    "name": "Golden Brown-DK",
+    "color": "9E4312"
+  },
+  {
+    "id": "976",
+    "name": "Golden Brown-MD",
+    "color": "F68D39"
+  },
+  {
+    "id": "977",
+    "name": "Golden Brown-LT",
+    "color": "FFA449"
+  },
+  {
+    "id": "986",
+    "name": "Forest Green-VY DK",
+    "color": "3A5241"
+  },
+  {
+    "id": "987",
+    "name": "Forest Green-DK",
+    "color": "536149"
+  },
+  {
+    "id": "988",
+    "name": "Forest Green-MD",
+    "color": "86916E"
+  },
+  {
+    "id": "989",
+    "name": "Forest Green",
+    "color": "86996E"
+  },
+  {
+    "id": "991",
+    "name": "Aquamarine-DK",
+    "color": "2F5B49"
+  },
+  {
+    "id": "992",
+    "name": "Aquamarine",
+    "color": "92B7A5"
+  },
+  {
+    "id": "993",
+    "name": "Aquamarine-LT",
+    "color": "C0E0C8"
+  },
+  {
+    "id": "995",
+    "name": "Electric Blue-DK",
+    "color": "007B86"
+  },
+  {
+    "id": "996",
+    "name": "Electric Blue-MD",
+    "color": "AADEE1"
+  },
+  {
+    "id": "3011",
+    "name": "Khaki Green-DK",
+    "color": "7B5B40"
+  },
+  {
+    "id": "3012",
+    "name": "Khaki Green-MD",
+    "color": "AA8667"
+  },
+  {
+    "id": "3013",
+    "name": "Khaki Green-LT",
+    "color": "D0C3A4"
+  },
+  {
+    "id": "3021",
+    "name": "Brown Grey - VY DK",
+    "color": "735B5D"
+  },
+  {
+    "id": "3022",
+    "name": "Brown Grey - MD",
+    "color": "ACACAA"
+  },
+  {
+    "id": "3023",
+    "name": "Brown Grey - LT",
+    "color": "C6BEAD"
+  },
+  {
+    "id": "3024",
+    "name": "Brown Grey - VY LT",
+    "color": "D2D0CD"
+  },
+  {
+    "id": "3031",
+    "name": "Mocha Brown-VY DK",
+    "color": "543817"
+  },
+  {
+    "id": "3032",
+    "name": "Mocha Brown-MD",
+    "color": "BC9C78"
+  },
+  {
+    "id": "3033",
+    "name": "Mocha Brown-VY LT",
+    "color": "EFDBBE"
+  },
+  {
+    "id": "3041",
+    "name": "Antique Violet-MD",
+    "color": "BE9BA7"
+  },
+  {
+    "id": "3042",
+    "name": "Antique Violet-LT",
+    "color": "E1CDC8"
+  },
+  {
+    "id": "3045",
+    "name": "Yellow Beige-DK",
+    "color": "D89769"
+  },
+  {
+    "id": "3046",
+    "name": "Yellow Beige-MD",
+    "color": "E5C18B"
+  },
+  {
+    "id": "3047",
+    "name": "Yellow Beige-LT",
+    "color": "FFECD3"
+  },
+  {
+    "id": "3051",
+    "name": "Green Grey-DK",
+    "color": "554900"
+  },
+  {
+    "id": "3052",
+    "name": "Green Grey--MD",
+    "color": "898D72"
+  },
+  {
+    "id": "3053",
+    "name": "Green Grey",
+    "color": "BBB394"
+  },
+  {
+    "id": "3064",
+    "name": "Sportsman Flsh-VY D",
+    "color": "C2654C"
+  },
+  {
+    "id": "3072",
+    "name": "Beaver Grey - VY LT",
+    "color": "E9E9DF"
+  },
+  {
+    "id": "3078",
+    "name": "Golden Yellow-VY LT",
+    "color": "FFFFDC"
+  },
+  {
+    "id": "3325",
+    "name": "Baby Blue-LT",
+    "color": "CAE2E5"
+  },
+  {
+    "id": "3326",
+    "name": "Rose-LT",
+    "color": "FF9D96"
+  },
+  {
+    "id": "3328",
+    "name": "Salmon-DK",
+    "color": "BC4055"
+  },
+  {
+    "id": "3340",
+    "name": "Apricot-MD",
+    "color": "FF7B67"
+  },
+  {
+    "id": "3341",
+    "name": "Apricot",
+    "color": "EBACA2"
+  },
+  {
+    "id": "3345",
+    "name": "Hunter Green-DK",
+    "color": "616452"
+  },
+  {
+    "id": "3346",
+    "name": "Hunter Green",
+    "color": "78866B"
+  },
+  {
+    "id": "3347",
+    "name": "Yellow Green-MD",
+    "color": "809873"
+  },
+  {
+    "id": "3348",
+    "name": "Yellow Green-LT",
+    "color": "E1F9BE"
+  },
+  {
+    "id": "3350",
+    "name": "Dusty Rose-ULT DK",
+    "color": "C94F5B"
+  },
+  {
+    "id": "3354",
+    "name": "Dusty Rose-LT",
+    "color": "FFD6D1"
+  },
+  {
+    "id": "3362",
+    "name": "Pine Green-DK",
+    "color": "605F54"
+  },
+  {
+    "id": "3363",
+    "name": "Pine Green-MD",
+    "color": "747F60"
+  },
+  {
+    "id": "3364",
+    "name": "Pine Green",
+    "color": "A1A787"
+  },
+  {
+    "id": "3371",
+    "name": "Black Brown",
+    "color": "532510"
+  },
+  {
+    "id": "3607",
+    "name": "Plum-LT",
+    "color": "E74F86"
+  },
+  {
+    "id": "3608",
+    "name": "Plum-VY LT",
+    "color": "F798B6"
+  },
+  {
+    "id": "3609",
+    "name": "Plum-ULT LT",
+    "color": "FFD6E5"
+  },
+  {
+    "id": "3685",
+    "name": "Mauve-DK",
+    "color": "A1354F"
+  },
+  {
+    "id": "3687",
+    "name": "Mauve",
+    "color": "CB4E61"
+  },
+  {
+    "id": "3688",
+    "name": "Mauve-MD",
+    "color": "FA9790"
+  },
+  {
+    "id": "3689",
+    "name": "Mauve-LT",
+    "color": "FFD5D8"
+  },
+  {
+    "id": "3705",
+    "name": "Melon-DK",
+    "color": "FF555B"
+  },
+  {
+    "id": "3706",
+    "name": "Melon-MD",
+    "color": "FF806D"
+  },
+  {
+    "id": "3708",
+    "name": "Melon-LT",
+    "color": "FED4DB"
+  },
+  {
+    "id": "3712",
+    "name": "Salmon-MD",
+    "color": "E6656B"
+  },
+  {
+    "id": "3713",
+    "name": "Salmon-VY LT",
+    "color": "FDE5D9"
+  },
+  {
+    "id": "3716",
+    "name": "Dusty Rose-VY LT",
+    "color": "FFD3D4"
+  },
+  {
+    "id": "3721",
+    "name": "Shell Pink-DK",
+    "color": "B84B4D"
+  },
+  {
+    "id": "3722",
+    "name": "Shell Pink-MD",
+    "color": "B85958"
+  },
+  {
+    "id": "3726",
+    "name": "Antique Mauve-DK",
+    "color": "C3767B"
+  },
+  {
+    "id": "3727",
+    "name": "Antique Mauve-LT",
+    "color": "FFC7C4"
+  },
+  {
+    "id": "3731",
+    "name": "Dusty Rose-VY DK",
+    "color": "D15D67"
+  },
+  {
+    "id": "3733",
+    "name": "Dusty Rose",
+    "color": "FF9A94"
+  },
+  {
+    "id": "3740",
+    "name": "Antique Violet-DK",
+    "color": "9C7D85"
+  },
+  {
+    "id": "3743",
+    "name": "Antique Violet-VY L",
+    "color": "EBEBE7"
+  },
+  {
+    "id": "3746",
+    "name": "Blue Violet-DK",
+    "color": "9566A2"
+  },
+  {
+    "id": "3747",
+    "name": "Blue Violet-VY LT",
+    "color": "E6ECE8"
+  },
+  {
+    "id": "3750",
+    "name": "Antique Blue-VY DK",
+    "color": "0C5B6C"
+  },
+  {
+    "id": "3752",
+    "name": "Antique Blue-VY LT",
+    "color": "C2D1CE"
+  },
+  {
+    "id": "3753",
+    "name": "Ant. Blue-ULT VY LT",
+    "color": "EDF7F7"
+  },
+  {
+    "id": "3755",
+    "name": "Baby Blue",
+    "color": "9EB0CE"
+  },
+  {
+    "id": "3756",
+    "name": "Baby Blue-ULT VY LT",
+    "color": "F8F8FC"
+  },
+  {
+    "id": "3760",
+    "name": "Wedgewood",
+    "color": "668E98"
+  },
+  {
+    "id": "3761",
+    "name": "Sky Blue-LT",
+    "color": "E3EAE6"
+  },
+  {
+    "id": "3765",
+    "name": "Peacock Blue-VY DK",
+    "color": "188086"
+  },
+  {
+    "id": "3766",
+    "name": "Peacock Blue-LT",
+    "color": "18656F"
+  },
+  {
+    "id": "3768",
+    "name": "Grey Green-DK",
+    "color": "5C6E6C"
+  },
+  {
+    "id": "3770",
+    "name": "Flesh-VY LT",
+    "color": "FFFAE0"
+  },
+  {
+    "id": "3772",
+    "name": "Negro Flesh",
+    "color": "AD533E"
+  },
+  {
+    "id": "3773",
+    "name": "Sportsman Flsh-MD",
+    "color": "E78667"
+  },
+  {
+    "id": "3774",
+    "name": "Sportsman Flsh-VY L",
+    "color": "FFDCC1"
+  },
+  {
+    "id": "3776",
+    "name": "Mahogony-LT",
+    "color": "DD6D5B"
+  },
+  {
+    "id": "3777",
+    "name": "Terra Cotta-VY DK",
+    "color": "BF4024"
+  },
+  {
+    "id": "3778",
+    "name": "Terra Cotta-LT",
+    "color": "ED7A64"
+  },
+  {
+    "id": "3779",
+    "name": "Ter. Cotta-ULT VY L",
+    "color": "FFB198"
+  },
+  {
+    "id": "3781",
+    "name": "Mocha Brown-DK",
+    "color": "71472A"
+  },
+  {
+    "id": "3782",
+    "name": "Mocho Brown-LT",
+    "color": "CEAF90"
+  },
+  {
+    "id": "3787",
+    "name": "Brown Grey - DK",
+    "color": "8B6D73"
+  },
+  {
+    "id": "3790",
+    "name": "Beige Grey - ULT DK",
+    "color": "8C756D"
+  },
+  {
+    "id": "3799",
+    "name": "Pewter Grey - VY DK",
+    "color": "514C53"
+  }
+]

@@ -1,7 +1,7 @@
 import { Document, Page, StyleSheet, Text, View } from "@react-pdf/renderer";
 import { FC } from "react";
 
-import { Grid } from "./App";
+import { GridData } from "./App";
 
 // Create styles
 const styles = StyleSheet.create({
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 const isTenth = (index: number): boolean => index % 10 === 0;
 
 // Create Document Component
-const PdfRenderer: FC<{ gridData: Grid; palette: string[] }> = ({
+const PdfRenderer: FC<{ gridData: GridData; palette: string[] }> = ({
   gridData,
   palette,
 }) => {
