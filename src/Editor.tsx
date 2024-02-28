@@ -1,8 +1,9 @@
 import "./Editor.css";
 
-import { FC, useMemo, useState } from "react";
+import type { FC } from "react";
+import { createRef, useEffect, useMemo, useState } from "react";
 
-import { GridData } from "./App";
+import type { GridData } from "./App";
 import bg from "./fakkelmannen.png";
 
 const createCursor = (radius: number): string => {
@@ -92,9 +93,58 @@ const Editor: FC<{
     }
   };
 
-  // Calculate the center row and column
-  const centerRow = Math.floor(gridData.length / 2);
-  const centerCol = Math.floor(gridData[0].length / 2);
+  const canvasRef = useMemo(() => createRef<HTMLCanvasElement>(), []);
+
+  const drawGrid = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const cellSize = 8;
+    const width = gridData[0].length * cellSize;
+    const height = gridData.length * cellSize;
+
+    canvas.width = width;
+    canvas.height = height;
+
+    ctx.clearRect(0, 0, width, height);
+
+    gridData.forEach((row, rowIndex) => {
+      row.forEach((cell, colIndex) => {
+        ctx.fillStyle = cell === null ? "transparent" : palette[cell];
+        ctx.fillRect(
+          colIndex * cellSize,
+          rowIndex * cellSize,
+          cellSize,
+          cellSize
+        );
+      });
+    });
+
+    // Add the actual grid:
+    ctx.strokeStyle = "rgba(0, 0, 0, 0.1)";
+    ctx.lineWidth = 0.5;
+
+    for (let i = 0; i <= width; i += cellSize) {
+      ctx.beginPath();
+      ctx.moveTo(i, 0);
+      ctx.lineTo(i, height);
+      ctx.stroke();
+    }
+
+    for (let i = 0; i <= height; i += cellSize) {
+      ctx.beginPath();
+      ctx.moveTo(0, i);
+      ctx.lineTo(width, i);
+      ctx.stroke();
+    }
+  };
+
+  useEffect(() => {
+    drawGrid();
+  }, [gridData]);
 
   const style = useMemo(
     () => ({
@@ -105,32 +155,36 @@ const Editor: FC<{
   );
 
   return (
-    <div
+    <canvas
+      ref={canvasRef}
       className="flex flex-col select-none bg-white"
       style={style}
-      onMouseLeave={handleMouseUp}
-      onDragStart={(e) => e.preventDefault()}
-    >
-      {gridData.map((row, rowIndex) => (
-        <div
-          key={rowIndex}
-          className={`grid-row flex ${isTenth(rowIndex) ? "tenth-row" : ""}`}
-        >
-          {row.map((cell, colIndex) => (
-            <div
-              key={colIndex}
-              className={`grid-cell ${isTenth(colIndex) ? "tenth-col" : ""}`}
-              style={{
-                backgroundColor: cell === null ? "transparent" : palette[cell],
-              }}
-              onMouseDown={() => handleMouseDown(rowIndex, colIndex)}
-              onMouseMove={() => handleMouseMove(rowIndex, colIndex)}
-              onMouseUp={handleMouseUp}
-            />
-          ))}
-        </div>
-      ))}
-    </div>
+      onMouseDown={(e) => {
+        const rect = canvasRef.current?.getBoundingClientRect();
+        if (!rect) return;
+
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const col = Math.floor(x / 8);
+        const row = Math.floor(y / 8);
+
+        handleMouseDown(row, col);
+      }}
+      onMouseMove={(e) => {
+        const rect = canvasRef.current?.getBoundingClientRect();
+        if (!rect) return;
+
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        const col = Math.floor(x / 8);
+        const row = Math.floor(y / 8);
+
+        handleMouseMove(row, col);
+      }}
+      onMouseUp={handleMouseUp}
+    />
   );
 };
 
