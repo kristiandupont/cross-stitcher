@@ -1,4 +1,5 @@
-import { FC, useEffect, useState } from "react";
+import type { FC } from "react";
+import { useEffect, useState } from "react";
 
 import DropdownMenu from "./DropdownMenu";
 import Editor from "./Editor";
@@ -28,7 +29,7 @@ function useDebouncedLocalStorageState<T>(
   delay = 500
 ) {
   // Retrieve initial value from local storage or use default
-  const [value, setValue] = useState(() => {
+  const [value, setValue] = useState<T>(() => {
     const storedValue = localStorage.getItem(key);
     return storedValue === null ? defaultValue : JSON.parse(storedValue);
   });
@@ -44,7 +45,7 @@ function useDebouncedLocalStorageState<T>(
     };
   }, [value, key, delay]);
 
-  return [value, setValue];
+  return [value, setValue] as const;
 }
 
 const initialGridData = Array.from({ length: initialHeight })
@@ -72,14 +73,7 @@ const App: FC = () => {
   };
 
   const [selectedColorIndex, setSelectedColorIndex] =
-    useDebouncedLocalStorageState("selectedColorIndex", 0);
-
-  // // Function to update grid data
-  // const updateGridCell = (row, col, colorIndex) => {
-  //   const newGridData = [...gridData];
-  //   newGridData[row][col] = colorIndex;
-  //   setGridData(newGridData);
-  // };
+    useDebouncedLocalStorageState<number | null>("selectedColorIndex", 0);
 
   return (
     <div className="flex flex-col items-center justify-between w-full">
@@ -108,7 +102,7 @@ const App: FC = () => {
           </div>
         </div>
 
-        <div className="bg-white/30 p-8 rounded-xl max-w-[800px] max-h-[600px] overflow-auto">
+        <div className="bg-white/30 rounded-xl max-w-[800px] max-h-[600px] overflow-auto">
           <Editor
             gridData={gridData}
             setGridData={setGridData}

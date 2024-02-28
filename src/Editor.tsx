@@ -20,14 +20,12 @@ const createCursor = (radius: number): string => {
   return canvas.toDataURL("image/png");
 };
 
-const isTenth = (index: number): boolean => index % 10 === 0;
-
 function brushStroke(
   gridData: GridData,
   row: number,
   col: number,
   brushSize: number,
-  colorIndex: number
+  colorIndex: number | null
 ): GridData {
   const newGridData = [...gridData];
   const min1 = Math.ceil(Math.max(brushSize, 1));
@@ -61,7 +59,7 @@ const Editor: FC<{
   gridData: GridData;
   setGridData: (gridData: GridData) => void;
   palette: string[];
-  selectedColorIndex: number;
+  selectedColorIndex: number | null;
   brushSize: number;
 }> = ({ gridData, setGridData, palette, selectedColorIndex, brushSize }) => {
   const [isMouseDown, setIsMouseDown] = useState(false);
@@ -157,7 +155,7 @@ const Editor: FC<{
   return (
     <canvas
       ref={canvasRef}
-      className="flex flex-col select-none bg-white"
+      className="flex flex-col select-none bg-white/50 m-8"
       style={style}
       onMouseDown={(e) => {
         const rect = canvasRef.current?.getBoundingClientRect();
