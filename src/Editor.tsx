@@ -1,7 +1,7 @@
 import "./Editor.css";
 
 import type { FC } from "react";
-import { createRef, useEffect, useMemo, useState } from "react";
+import { createRef, useCallback, useEffect, useMemo, useState } from "react";
 
 import type { GridData } from "./App";
 import bg from "./fakkelmannen.png";
@@ -95,7 +95,7 @@ const Editor: FC<{
 
   const canvasRef = useMemo(() => createRef<HTMLCanvasElement>(), []);
 
-  const drawGrid = () => {
+  const drawGrid = useCallback((gridData: GridData, palette: string[]) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -124,7 +124,7 @@ const Editor: FC<{
     });
 
     // Add the actual grid:
-    ctx.strokeStyle = "rgba(0, 0, 0, 0.1)";
+    ctx.strokeStyle = "rgba(127, 127, 127, 0.3)";
     ctx.lineWidth = 0.5;
 
     for (let i = 0; i <= width; i += cellSize) {
@@ -140,10 +140,10 @@ const Editor: FC<{
       ctx.lineTo(width, i);
       ctx.stroke();
     }
-  };
+  }, []);
 
   useEffect(() => {
-    drawGrid();
+    drawGrid(gridData, palette);
   }, [gridData]);
 
   const style = useMemo(
