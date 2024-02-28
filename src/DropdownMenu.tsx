@@ -43,7 +43,7 @@ const DropdownMenu: FC<{ gridData: GridData; palette: string[] }> = ({
             <Menu.Item>
               {({ active }) => (
                 <div>
-                  <a href={instance.url} download="cross-stitch.pdf">
+                  <a href={instance.url ?? "#"} download="cross-stitch.pdf">
                     <div
                       className={`${
                         active ? "bg-violet-500 text-white" : "text-gray-900"
