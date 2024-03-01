@@ -20,10 +20,10 @@ const PaletteSelector: FC<{
   };
 
   return (
-    <div className="flex flex-col space-y-4 items-center">
+    <div className="flex flex-col items-center space-y-4">
       <div className="grid grid-cols-3 gap-2">
         <div
-          className={`size-9 rounded drop-shadow outline-red-500 outline-offset-1 cursor-pointer bg-white ${
+          className={`size-9 cursor-pointer rounded bg-white outline-offset-1 outline-red-500 drop-shadow ${
             selectedIndex === null ? "outline" : ""
           }`}
           onClick={() => setSelectedIndex(null)}
@@ -40,7 +40,7 @@ const PaletteSelector: FC<{
         {palette.map((color, index) => (
           <div
             key={index}
-            className={`size-9 rounded drop-shadow outline-red-500 outline-offset-1 cursor-pointer ${
+            className={`size-9 cursor-pointer rounded outline-offset-1 outline-red-500 drop-shadow ${
               selectedIndex === index ? "outline" : ""
             }`}
             style={{ backgroundColor: color }}

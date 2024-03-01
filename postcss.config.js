@@ -1,4 +1,4 @@
-// eslint-disable-next-line unicorn/prefer-module, no-undef
+// eslint-disable-next-line no-undef
 module.exports = {
   plugins: {
     tailwindcss: {},

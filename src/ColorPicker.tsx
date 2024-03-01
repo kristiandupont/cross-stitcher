@@ -1,5 +1,6 @@
 import { Popover } from "@headlessui/react";
-import { FC, useMemo, useState } from "react";
+import type { FC } from "react";
+import { useMemo, useState } from "react";
 import { HexColorPicker } from "react-colorful";
 
 import dmcColors from "./dmc-colors.json";
@@ -33,10 +34,10 @@ const ColorPicker: FC<{
 
   return (
     <Popover className="">
-      <Popover.Button className="bg-white/70 px-6 py-2 flex flex-col items-center justify-center rounded-lg">
+      <Popover.Button className="flex flex-col items-center justify-center rounded-lg bg-white/70 px-6 py-2">
         Change..
       </Popover.Button>
-      <Popover.Panel className="absolute z-10 space-y-2 mt-2 shadow bg-white/70 rounded-xl p-8 flex flex-col items-center">
+      <Popover.Panel className="absolute z-10 mt-2 flex flex-col items-center space-y-2 rounded-xl bg-white/70 p-8 shadow">
         <HexColorPicker color={color} onChange={setColor} />
 
         <div className="p-2 text-center">
@@ -47,7 +48,7 @@ const ColorPicker: FC<{
         </div>
 
         <button
-          className="bg-white/70 rounded-lg px-4 py-2 w-full flex flex-col items-center justify-center"
+          className="flex w-full flex-col items-center justify-center rounded-lg bg-white/70 px-4 py-2"
           onClick={() => addColor(color)}
         >
           Add

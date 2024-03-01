@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 function useDebouncedLocalStorageState<T>(
   key: string,
   defaultValue: T,
-  delay = 500
+  delay = 500,
 ): [T, (value: T) => void] {
   // Retrieve initial value from local storage or use default
   const [value, setValue] = useState<T>(() => {

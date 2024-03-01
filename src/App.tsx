@@ -56,7 +56,7 @@ const BrushSizeSelector: FC<{
 
   return (
     <div>
-      <div className="h-6 w-32 flex justify-start">
+      <div className="flex h-6 w-32 justify-start">
         <input
           type="range"
           className="w-32"
@@ -68,7 +68,9 @@ const BrushSizeSelector: FC<{
           onChange={handleBrushSizeChange}
         />
       </div>
-      <div>Brush size: {brushSize}</div>
+      <div className="flex flex-row justify-between">
+        <span>Brush size:</span> <span className="font-bold">{brushSize}</span>
+      </div>
     </div>
   );
 };
@@ -77,16 +79,16 @@ const App: FC = () => {
   // State for the palette and grid data
   const [palette, setPalette] = useDebouncedLocalStorageState(
     "palette",
-    initialPalette
+    initialPalette,
   );
   const [gridData, setGridData] = useDebouncedLocalStorageState(
     "gridData",
-    initialGridData
+    initialGridData,
   );
 
   const [brushSize, setBrushSize] = useDebouncedLocalStorageState(
     "brushSize",
-    1
+    1,
   );
 
   const [selectedColorIndex, setSelectedColorIndex] =
@@ -95,8 +97,8 @@ const App: FC = () => {
   const [zoom, setZoom] = useDebouncedLocalStorageState("zoom", 1);
 
   return (
-    <div className="flex flex-col items-center justify-between w-full">
-      <nav className="flex items-center justify-between w-full p-4 bg-white/60">
+    <div className="flex w-full flex-col items-center justify-between">
+      <nav className="flex w-full items-center justify-between bg-white/60 p-4">
         <h1 className="text-2xl font-bold">Cross Stitcher</h1>
         <ZoomSelector zoom={zoom} setZoom={setZoom}></ZoomSelector>
         <DropdownMenu
@@ -107,9 +109,9 @@ const App: FC = () => {
         />
       </nav>
 
-      <main className="flex flex-row items-start justify-start flex-1 p-8 w-full space-x-8">
-        <div className="flex flex-col items-start justify-start w-52">
-          <div className="bg-white/30 p-4 rounded-xl flex flex-col items-center space-y-8">
+      <main className="flex w-full flex-1 flex-row items-start justify-start space-x-8 p-8">
+        <div className="flex w-52 flex-col items-start justify-start">
+          <div className="flex flex-col items-center space-y-8 rounded-xl bg-white/30 p-4">
             <BrushSizeSelector
               brushSize={brushSize}
               setBrushSize={setBrushSize}

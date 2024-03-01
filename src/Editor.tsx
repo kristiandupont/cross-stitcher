@@ -27,7 +27,7 @@ function brushStroke(
   row: number,
   col: number,
   brushSize: number,
-  colorIndex: number | null
+  colorIndex: number | null,
 ): GridData {
   const newGridData = [...gridData];
   const min1 = Math.ceil(Math.max(brushSize, 1));
@@ -84,7 +84,7 @@ const Editor: FC<{
       row,
       col,
       brushSize,
-      selectedColorIndex
+      selectedColorIndex,
     );
     setGridData(newGridData);
   };
@@ -127,7 +127,7 @@ const Editor: FC<{
             colIndex * cellSize,
             rowIndex * cellSize,
             cellSize,
-            cellSize
+            cellSize,
           );
         });
       });
@@ -150,7 +150,7 @@ const Editor: FC<{
         ctx.stroke();
       }
     },
-    [canvasRef, cellSize]
+    [canvasRef, cellSize],
   );
 
   useEffect(() => {
@@ -162,11 +162,11 @@ const Editor: FC<{
       cursor: `url('${cursorDataURL}') ${radius} ${radius}, auto`,
       // backgroundImage: `url(${bg})`,
     }),
-    [cursorDataURL, radius]
+    [cursorDataURL, radius],
   );
 
   function wrapHandler(
-    handler: (row: number, col: number) => void
+    handler: (row: number, col: number) => void,
   ): MouseEventHandler<HTMLCanvasElement> {
     return (e) => {
       const rect = canvasRef.current?.getBoundingClientRect();
@@ -191,7 +191,7 @@ const Editor: FC<{
     >
       <canvas
         ref={canvasRef}
-        className="select-none bg-white/50"
+        className="select-none bg-white/80"
         style={style}
         onMouseDown={wrapHandler(handleMouseDown)}
         onMouseMove={wrapHandler(handleMouseMove)}

@@ -1,7 +1,7 @@
 import type { FC } from "react";
 
 const SaveIcon: FC = () => (
-  <svg className="size-5 mr-2" viewBox="0 0 24 24" fill="none">
+  <svg className="mr-2 size-5" viewBox="0 0 24 24" fill="none">
     <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
     <g
       id="SVGRepo_tracerCarrier"

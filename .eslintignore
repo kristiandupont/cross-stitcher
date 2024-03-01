@@ -1,5 +1,6 @@
 build
 dist
+docs
 
 vite.config.ts
 vitest.config.ts
