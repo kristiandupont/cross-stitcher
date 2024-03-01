@@ -2,31 +2,51 @@ import { Menu, Transition } from "@headlessui/react";
 import {
   ArrowUturnLeftIcon,
   ChevronDownIcon,
+  CogIcon,
   PrinterIcon,
 } from "@heroicons/react/20/solid";
-import { usePDF } from "@react-pdf/renderer";
-import { FC, Fragment } from "react";
+import { pdf } from "@react-pdf/renderer";
+import type { FC } from "react";
+import { Fragment, useState } from "react";
 
-import { GridData } from "./App";
+import type { GridData } from "./App";
 import PdfRenderer from "./PdfRenderer";
 
 const DropdownMenu: FC<{ gridData: GridData; palette: string[] }> = ({
   gridData,
   palette,
 }) => {
-  const [instance] = usePDF({
-    document: <PdfRenderer gridData={gridData} palette={palette} />,
-  });
+  const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
+
+  const handleDownloadPDF = async () => {
+    setIsGeneratingPdf(true);
+    setTimeout(async () => {
+      const pdfBlob = await pdf(
+        <PdfRenderer gridData={gridData} palette={palette} />
+      ).toBlob();
+      const url = URL.createObjectURL(pdfBlob);
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.download = "cross-stitch.pdf";
+      anchor.click();
+      URL.revokeObjectURL(url);
+      setIsGeneratingPdf(false);
+    }, 0);
+  };
 
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
         <Menu.Button className="inline-flex w-full justify-center rounded-md bg-black/20 px-4 py-2 text-sm font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
           Options
-          <ChevronDownIcon
-            className="-mr-1 ml-2 h-5 w-5 text-violet-200 hover:text-violet-100"
-            aria-hidden="true"
-          />
+          {isGeneratingPdf ? (
+            <CogIcon className="animate-spin -mr-1 ml-2 h-5 w-5 text-violet-200 hover:text-violet-100" />
+          ) : (
+            <ChevronDownIcon
+              className="-mr-1 ml-2 h-5 w-5 text-violet-200 hover:text-violet-100"
+              aria-hidden="true"
+            />
+          )}
         </Menu.Button>
       </div>
       <Transition
@@ -42,23 +62,16 @@ const DropdownMenu: FC<{ gridData: GridData; palette: string[] }> = ({
           <div className="px-1 py-1 ">
             <Menu.Item>
               {({ active }) => (
-                <div>
-                  <a href={instance.url ?? "#"} download="cross-stitch.pdf">
-                    <div
-                      className={`${
-                        active ? "bg-violet-500 text-white" : "text-gray-900"
-                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                    >
-                      <PrinterIcon
-                        className="mr-2 h-5 w-5"
-                        aria-hidden="true"
-                      />
-                      {instance.loading
-                        ? "Loading document..."
-                        : "Download PDF"}
-                    </div>
-                  </a>
-                </div>
+                <button className="w-full" onClick={handleDownloadPDF}>
+                  <div
+                    className={`${
+                      active ? "bg-violet-500 text-white" : "text-gray-900"
+                    } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                  >
+                    <PrinterIcon className="mr-2 h-5 w-5" aria-hidden="true" />
+                    {isGeneratingPdf ? "Generating PDF..." : "Download PDF"}
+                  </div>
+                </button>
               )}
             </Menu.Item>
             <Menu.Item>

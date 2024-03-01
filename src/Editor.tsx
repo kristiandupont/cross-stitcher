@@ -9,6 +9,8 @@ import bg from "./fakkelmannen.png";
 const createCursor = (radius: number): string => {
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
+  if (!ctx) return "";
+
   canvas.width = radius * 2;
   canvas.height = radius * 2;
 
@@ -147,7 +149,7 @@ const Editor: FC<{
   const style = useMemo(
     () => ({
       cursor: `url('${cursorDataURL}') ${radius} ${radius}, auto`,
-      backgroundImage: `url(${bg})`,
+      // backgroundImage: `url(${bg})`,
     }),
     [cursorDataURL, radius]
   );
