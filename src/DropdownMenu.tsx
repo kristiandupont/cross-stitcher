@@ -54,7 +54,7 @@ const DropdownMenu: FC<{
     setIsGeneratingPdf(true);
     setTimeout(async () => {
       const pdfBlob = await pdf(
-        <PdfRenderer gridData={gridData} palette={palette} />,
+        <PdfRenderer gridData={gridData} palette={palette} />
       ).toBlob();
       saveAs(pdfBlob, "cross-stitch.pdf");
       setIsGeneratingPdf(false);
@@ -99,6 +99,34 @@ const DropdownMenu: FC<{
     input.click();
   };
 
+  const handleCrop = () => {
+    let minRow = gridData.length;
+    let maxRow = 0;
+    let minCol = gridData[0].length;
+    let maxCol = 0;
+
+    for (let i = 0; i < gridData.length; i++) {
+      for (let j = 0; j < gridData[i].length; j++) {
+        if (gridData[i][j] !== null) {
+          minRow = Math.min(minRow, i);
+          maxRow = Math.max(maxRow, i);
+          minCol = Math.min(minCol, j);
+          maxCol = Math.max(maxCol, j);
+        }
+      }
+    }
+
+    if (maxRow - minRow < 1 || maxCol - minCol < 1) {
+      return;
+    }
+
+    const newGridData = gridData
+      .slice(minRow, maxRow + 1)
+      .map((row) => row.slice(minCol, maxCol + 1));
+
+    setGridData(newGridData);
+  };
+
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -133,16 +161,15 @@ const DropdownMenu: FC<{
               <FolderOpenIcon className="mr-2 size-5" /> Load
             </MenuItem>
 
+            <MenuItem onClick={handleCrop}>
+              <ArrowsPointingInIcon className="mr-2 size-5" /> Crop
+            </MenuItem>
+
             <MenuItem onClick={handleDownloadPDF}>
               <PrinterIcon className="mr-2 size-5" aria-hidden="true" />
               {isGeneratingPdf ? "Generating PDF..." : "Download PDF"}
             </MenuItem>
 
-            <MenuItem onClick={() => {}}>
-              <ArrowsPointingInIcon className="mr-2 size-5" /> Crop
-            </MenuItem>
-
-            {/* Separator */}
             <hr className="my-1" />
 
             <MenuItem

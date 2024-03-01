@@ -184,6 +184,7 @@ const Editor: FC<{
 
   return (
     <div
+      className="relative"
       style={{
         width: gridData[0].length * cellSize,
         height: gridData.length * cellSize,
@@ -191,12 +192,15 @@ const Editor: FC<{
     >
       <canvas
         ref={canvasRef}
-        className="select-none bg-white/70"
+        className="select-none bg-white/70 absolute"
         style={style}
         onMouseDown={wrapHandler(handleMouseDown)}
         onMouseMove={wrapHandler(handleMouseMove)}
         onMouseUp={handleMouseUp}
       />
+      {/* <svg className="size-16 absolute pointer-events-none" viewBox="0 0 20 20">
+        <path d="M 10 10 L 20 20" fill="none" stroke="black" />
+      </svg> */}
     </div>
   );
 };
