@@ -23,12 +23,12 @@ const PaletteSelector: FC<{
     <div className="flex flex-col space-y-4 items-center">
       <div className="grid grid-cols-3 gap-2">
         <div
-          className={`w-8 h-8 rounded drop-shadow outline-red-500 outline-offset-1 cursor-pointer bg-white ${
+          className={`size-9 rounded drop-shadow outline-red-500 outline-offset-1 cursor-pointer bg-white ${
             selectedIndex === null ? "outline" : ""
           }`}
           onClick={() => setSelectedIndex(null)}
         >
-          <svg className="w-full h-full" viewBox="0 0 24 24">
+          <svg className="size-full" viewBox="0 0 24 24">
             <path
               fill="none"
               stroke="#888"
@@ -40,7 +40,7 @@ const PaletteSelector: FC<{
         {palette.map((color, index) => (
           <div
             key={index}
-            className={`w-8 h-8 rounded drop-shadow outline-red-500 outline-offset-1 cursor-pointer ${
+            className={`size-9 rounded drop-shadow outline-red-500 outline-offset-1 cursor-pointer ${
               selectedIndex === index ? "outline" : ""
             }`}
             style={{ backgroundColor: color }}

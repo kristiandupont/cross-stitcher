@@ -1,10 +1,11 @@
 {
   "root": true,
-  "extends": ["@kristiandupont"],
+  "extends": ["@kristiandupont", "@kristiandupont/eslint-config/react"],
   "rules": {
     "quotes": "off",
     "unicorn/prefer-top-level-await": "off",
-    "unicorn/no-useless-undefined": "off"
+    "unicorn/no-useless-undefined": "off",
+    "react/react-in-jsx-scope": "off"
   },
   "overrides": [
     {

@@ -1,6 +1,6 @@
 import "./Editor.css";
 
-import type { FC } from "react";
+import type { FC, MouseEventHandler } from "react";
 import { createRef, useCallback, useEffect, useMemo, useState } from "react";
 
 import type { GridData } from "./App";
@@ -63,11 +63,20 @@ const Editor: FC<{
   palette: string[];
   selectedColorIndex: number | null;
   brushSize: number;
-}> = ({ gridData, setGridData, palette, selectedColorIndex, brushSize }) => {
+  zoom: number;
+}> = ({
+  gridData,
+  setGridData,
+  palette,
+  selectedColorIndex,
+  brushSize,
+  zoom,
+}) => {
+  const cellSize = 8 * zoom;
   const [isMouseDown, setIsMouseDown] = useState(false);
 
-  const radius = brushSize * 8;
-  const cursorDataURL = useMemo(() => createCursor(radius), [brushSize]);
+  const radius = brushSize * cellSize;
+  const cursorDataURL = useMemo(() => createCursor(radius), [radius]);
 
   const updateCells = (row: number, col: number) => {
     const newGridData = brushStroke(
@@ -95,56 +104,58 @@ const Editor: FC<{
 
   const canvasRef = useMemo(() => createRef<HTMLCanvasElement>(), []);
 
-  const drawGrid = useCallback((gridData: GridData, palette: string[]) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+  const drawGrid = useCallback(
+    (gridData: GridData, palette: string[]) => {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
 
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
 
-    const cellSize = 8;
-    const width = gridData[0].length * cellSize;
-    const height = gridData.length * cellSize;
+      const width = gridData[0].length * cellSize;
+      const height = gridData.length * cellSize;
 
-    canvas.width = width;
-    canvas.height = height;
+      canvas.width = width;
+      canvas.height = height;
 
-    ctx.clearRect(0, 0, width, height);
+      ctx.clearRect(0, 0, width, height);
 
-    gridData.forEach((row, rowIndex) => {
-      row.forEach((cell, colIndex) => {
-        ctx.fillStyle = cell === null ? "transparent" : palette[cell];
-        ctx.fillRect(
-          colIndex * cellSize,
-          rowIndex * cellSize,
-          cellSize,
-          cellSize
-        );
+      gridData.forEach((row, rowIndex) => {
+        row.forEach((cell, colIndex) => {
+          ctx.fillStyle = cell === null ? "transparent" : palette[cell];
+          ctx.fillRect(
+            colIndex * cellSize,
+            rowIndex * cellSize,
+            cellSize,
+            cellSize
+          );
+        });
       });
-    });
 
-    // Add the actual grid:
-    ctx.strokeStyle = "rgba(127, 127, 127, 0.3)";
-    ctx.lineWidth = 0.5;
+      // Add the actual grid:
+      ctx.strokeStyle = "rgba(127, 127, 127, 0.3)";
+      ctx.lineWidth = 0.5;
 
-    for (let i = 0; i <= width; i += cellSize) {
-      ctx.beginPath();
-      ctx.moveTo(i, 0);
-      ctx.lineTo(i, height);
-      ctx.stroke();
-    }
+      for (let i = 0; i <= width; i += cellSize) {
+        ctx.beginPath();
+        ctx.moveTo(i, 0);
+        ctx.lineTo(i, height);
+        ctx.stroke();
+      }
 
-    for (let i = 0; i <= height; i += cellSize) {
-      ctx.beginPath();
-      ctx.moveTo(0, i);
-      ctx.lineTo(width, i);
-      ctx.stroke();
-    }
-  }, []);
+      for (let i = 0; i <= height; i += cellSize) {
+        ctx.beginPath();
+        ctx.moveTo(0, i);
+        ctx.lineTo(width, i);
+        ctx.stroke();
+      }
+    },
+    [canvasRef, cellSize]
+  );
 
   useEffect(() => {
     drawGrid(gridData, palette);
-  }, [gridData]);
+  }, [drawGrid, gridData, palette, zoom]);
 
   const style = useMemo(
     () => ({
@@ -154,37 +165,39 @@ const Editor: FC<{
     [cursorDataURL, radius]
   );
 
+  function wrapHandler(
+    handler: (row: number, col: number) => void
+  ): MouseEventHandler<HTMLCanvasElement> {
+    return (e) => {
+      const rect = canvasRef.current?.getBoundingClientRect();
+      if (!rect) return;
+
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const col = Math.floor(x / cellSize);
+      const row = Math.floor(y / cellSize);
+
+      handler(row, col);
+    };
+  }
+
   return (
-    <canvas
-      ref={canvasRef}
-      className="flex flex-col select-none bg-white/50 m-8"
-      style={style}
-      onMouseDown={(e) => {
-        const rect = canvasRef.current?.getBoundingClientRect();
-        if (!rect) return;
-
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        const col = Math.floor(x / 8);
-        const row = Math.floor(y / 8);
-
-        handleMouseDown(row, col);
+    <div
+      style={{
+        width: gridData[0].length * cellSize,
+        height: gridData.length * cellSize,
       }}
-      onMouseMove={(e) => {
-        const rect = canvasRef.current?.getBoundingClientRect();
-        if (!rect) return;
-
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        const col = Math.floor(x / 8);
-        const row = Math.floor(y / 8);
-
-        handleMouseMove(row, col);
-      }}
-      onMouseUp={handleMouseUp}
-    />
+    >
+      <canvas
+        ref={canvasRef}
+        className="select-none bg-white/50"
+        style={style}
+        onMouseDown={wrapHandler(handleMouseDown)}
+        onMouseMove={wrapHandler(handleMouseMove)}
+        onMouseUp={handleMouseUp}
+      />
+    </div>
   );
 };
 

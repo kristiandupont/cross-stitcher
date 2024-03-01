@@ -33,10 +33,10 @@ const ColorPicker: FC<{
 
   return (
     <Popover className="">
-      <Popover.Button className="bg-white/70 px-4 py-2 flex flex-col items-center justify-center rounded-lg">
+      <Popover.Button className="bg-white/70 px-6 py-2 flex flex-col items-center justify-center rounded-lg">
         Change..
       </Popover.Button>
-      <Popover.Panel className="absolute right-0 z-10 space-y-2 mt-2 shadow bg-white/70 rounded-xl p-8 flex flex-col items-center">
+      <Popover.Panel className="absolute z-10 space-y-2 mt-2 shadow bg-white/70 rounded-xl p-8 flex flex-col items-center">
         <HexColorPicker color={color} onChange={setColor} />
 
         <div className="p-2 text-center">
