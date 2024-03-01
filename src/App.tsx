@@ -79,16 +79,16 @@ const App: FC = () => {
   // State for the palette and grid data
   const [palette, setPalette] = useDebouncedLocalStorageState(
     "palette",
-    initialPalette,
+    initialPalette
   );
   const [gridData, setGridData] = useDebouncedLocalStorageState(
     "gridData",
-    initialGridData,
+    initialGridData
   );
 
   const [brushSize, setBrushSize] = useDebouncedLocalStorageState(
     "brushSize",
-    1,
+    1
   );
 
   const [selectedColorIndex, setSelectedColorIndex] =
@@ -127,10 +127,10 @@ const App: FC = () => {
 
         <div className="flex-1">
           <div
-            className="overflow-auto"
+            className="overflow-auto bg-white/30"
             style={{
-              maxWidth: "calc(100vw - 320px)",
-              maxHeight: "calc(100vh - 132px",
+              width: "calc(100vw - 320px)",
+              height: "calc(100vh - 132px",
             }}
           >
             <Editor
