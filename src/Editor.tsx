@@ -4,7 +4,6 @@ import type { FC, MouseEventHandler } from "react";
 import { createRef, useCallback, useEffect, useMemo, useState } from "react";
 
 import type { GridData } from "./App";
-import bg from "./fakkelmannen.png";
 
 const createCursor = (radius: number): string => {
   const canvas = document.createElement("canvas");
