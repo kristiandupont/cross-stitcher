@@ -1,7 +1,15 @@
-import { Document, Page, StyleSheet, Text, View } from "@react-pdf/renderer";
+import {
+  Document,
+  Image,
+  Page,
+  StyleSheet,
+  Text,
+  View,
+} from "@react-pdf/renderer";
 import type { FC } from "react";
 
 import type { GridData } from "./App";
+import logo from "./logo.png";
 
 // Create styles
 const styles = StyleSheet.create({
@@ -72,7 +80,7 @@ const PdfRenderer: FC<{ gridData: GridData; palette: string[] }> = ({
     <Page size="A4" style={styles.page}>
       <View style={styles.section}>
         <Grid gridData={gridData} palette={palette} />
-        <Text>Colors:</Text>
+        <Text>Farver:</Text>
         {palette.map((color, index) => (
           <View
             key={index}
@@ -84,6 +92,20 @@ const PdfRenderer: FC<{ gridData: GridData; palette: string[] }> = ({
             }}
           />
         ))}
+
+        <View style={{ flexDirection: "row", marginTop: 10 }}>
+          <Image src={logo} style={{ width: 100 }} />
+          <View>
+            <Text style={{ fontSize: 8, marginTop: 10 }}>
+              Copyright © NedalNeedle. Mønsteret er kun til privat bruk og må
+              ikke kopieres, videreselges eller omfordeles.
+            </Text>
+            <Text style={{ fontSize: 8 }}>
+              Det er ikke tillatt med systematisk salg av produkter laget av
+              dette mønsteret.
+            </Text>
+          </View>
+        </View>
       </View>
     </Page>
   </Document>

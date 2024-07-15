@@ -33,8 +33,8 @@ const ColorPicker: FC<{
   }, [color]);
 
   return (
-    <Popover className="">
-      <Popover.Button className="flex flex-col items-center justify-center rounded-lg bg-white/70 px-6 py-2">
+    <Popover className="w-full">
+      <Popover.Button className="flex flex-col items-center justify-center rounded-lg bg-white/70 w-full py-2">
         Change..
       </Popover.Button>
       <Popover.Panel className="absolute z-10 mt-2 flex flex-col items-center space-y-2 rounded-xl bg-white/70 p-8 shadow">

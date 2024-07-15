@@ -2,6 +2,7 @@ import "./index.css";
 
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
+import { Geiger } from "react-geiger";
 
 import App from "./App";
 
@@ -17,8 +18,13 @@ async function main() {
 
   ReactDOM.createRoot(root).render(
     <StrictMode>
-      <App />
-    </StrictMode>,
+      <Geiger
+        renderTimeThreshold={50}
+        enabled={(import.meta as any).env.MODE === "development"}
+      >
+        <App />
+      </Geiger>
+    </StrictMode>
   );
 }
 

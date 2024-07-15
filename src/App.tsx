@@ -1,5 +1,6 @@
 import type { FC } from "react";
 
+import BrushEditor from "./BrushEditor";
 import DropdownMenu from "./DropdownMenu";
 import Editor from "./Editor";
 import PaletteSelector from "./PaletteSelector";
@@ -21,7 +22,9 @@ const initialPalette = [
   "#ffffff",
 ];
 
-export type GridData = (number | null)[][];
+export type FillType = "full" | "A" | "B" | "C" | "D";
+export type Cell = null | number | `${number}:${FillType}`;
+export type GridData = Cell[][];
 
 const initialGridData = Array.from({ length: initialHeight })
   .fill(null)
@@ -46,41 +49,13 @@ const ZoomSelector: FC<{ zoom: number; setZoom: (zoom: number) => void }> = ({
   </div>
 );
 
-const BrushSizeSelector: FC<{
-  brushSize: number;
-  setBrushSize: (size: number) => void;
-}> = ({ brushSize, setBrushSize }) => {
-  const handleBrushSizeChange = (event: { target: { value: any } }) => {
-    setBrushSize(Number(event.target.value));
-  };
-
-  return (
-    <div>
-      <div className="flex h-6 w-32 justify-start">
-        <input
-          type="range"
-          className="w-32"
-          id="brushSize"
-          min="0.5"
-          max="8"
-          step={0.1}
-          value={brushSize}
-          onChange={handleBrushSizeChange}
-        />
-      </div>
-      <div className="flex flex-row justify-between">
-        <span>Brush size:</span> <span className="font-bold">{brushSize}</span>
-      </div>
-    </div>
-  );
-};
-
 const App: FC = () => {
   // State for the palette and grid data
   const [palette, setPalette] = useDebouncedLocalStorageState(
     "palette",
     initialPalette
   );
+
   const [gridData, setGridData] = useDebouncedLocalStorageState(
     "gridData",
     initialGridData
@@ -112,10 +87,7 @@ const App: FC = () => {
       <main className="flex w-full flex-1 flex-row items-start justify-start space-x-8 p-8">
         <div className="flex w-52 flex-col items-start justify-start">
           <div className="flex flex-col items-center space-y-8 rounded-xl bg-white/30 p-4">
-            <BrushSizeSelector
-              brushSize={brushSize}
-              setBrushSize={setBrushSize}
-            />
+            <BrushEditor brushSize={brushSize} setBrushSize={setBrushSize} />
             <PaletteSelector
               palette={palette}
               setPalette={setPalette}
