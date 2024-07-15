@@ -13,6 +13,7 @@ import { type FC, Fragment, useState } from "react";
 import type { GridData } from "./App";
 import PdfRenderer from "./PdfRenderer";
 import SaveIcon from "./SaveIcon";
+import SizeEditor from "./SizeEditor";
 
 const MenuItem: FC<{ onClick: () => void; children: React.ReactNode }> = ({
   onClick,
@@ -99,91 +100,73 @@ const DropdownMenu: FC<{
     input.click();
   };
 
-  const handleCrop = () => {
-    let minRow = gridData.length;
-    let maxRow = 0;
-    let minCol = gridData[0].length;
-    let maxCol = 0;
-
-    for (let i = 0; i < gridData.length; i++) {
-      for (let j = 0; j < gridData[i].length; j++) {
-        if (gridData[i][j] !== null) {
-          minRow = Math.min(minRow, i);
-          maxRow = Math.max(maxRow, i);
-          minCol = Math.min(minCol, j);
-          maxCol = Math.max(maxCol, j);
-        }
-      }
-    }
-
-    if (maxRow - minRow < 1 || maxCol - minCol < 1) {
-      return;
-    }
-
-    const newGridData = gridData
-      .slice(minRow, maxRow + 1)
-      .map((row) => row.slice(minCol, maxCol + 1));
-
-    setGridData(newGridData);
-  };
+  const [sizeEditorVisible, setSizeEditorVisible] = useState(false);
 
   return (
-    <Menu as="div" className="relative inline-block text-left">
-      <div>
-        <Menu.Button className="inline-flex w-full justify-center rounded-md bg-black/20 px-4 py-2 text-sm font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
-          Options
-          {isGeneratingPdf ? (
-            <CogIcon className="-mr-1 ml-2 size-5 animate-spin text-violet-200 hover:text-violet-100" />
-          ) : (
-            <ChevronDownIcon
-              className="-mr-1 ml-2 size-5 text-violet-200 hover:text-violet-100"
-              aria-hidden="true"
-            />
-          )}
-        </Menu.Button>
-      </div>
-      <Transition
-        as={Fragment}
-        enter="transition ease-out duration-100"
-        enterFrom="transform opacity-0 scale-95"
-        enterTo="transform opacity-100 scale-100"
-        leave="transition ease-in duration-75"
-        leaveFrom="transform opacity-100 scale-100"
-        leaveTo="transform opacity-0 scale-95"
-      >
-        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
-          <div className="p-1 ">
-            <MenuItem onClick={handleSave}>
-              <SaveIcon /> Save
-            </MenuItem>
+    <>
+      <SizeEditor
+        isVisible={sizeEditorVisible}
+        onClose={() => setSizeEditorVisible(false)}
+        gridData={gridData}
+        setGridData={setGridData}
+      />
+      <Menu as="div" className="relative inline-block text-left">
+        <div>
+          <Menu.Button className="inline-flex w-full justify-center rounded-md bg-black/20 px-4 py-2 text-sm font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
+            Options
+            {isGeneratingPdf ? (
+              <CogIcon className="-mr-1 ml-2 size-5 animate-spin text-violet-200 hover:text-violet-100" />
+            ) : (
+              <ChevronDownIcon
+                className="-mr-1 ml-2 size-5 text-violet-200 hover:text-violet-100"
+                aria-hidden="true"
+              />
+            )}
+          </Menu.Button>
+        </div>
+        <Transition
+          as={Fragment}
+          enter="transition ease-out duration-100"
+          enterFrom="transform opacity-0 scale-95"
+          enterTo="transform opacity-100 scale-100"
+          leave="transition ease-in duration-75"
+          leaveFrom="transform opacity-100 scale-100"
+          leaveTo="transform opacity-0 scale-95"
+        >
+          <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
+            <div className="p-1 ">
+              <MenuItem onClick={handleSave}>
+                <SaveIcon /> Save
+              </MenuItem>
 
-            <MenuItem onClick={handleLoad}>
-              <FolderOpenIcon className="mr-2 size-5" /> Load
-            </MenuItem>
+              <MenuItem onClick={handleLoad}>
+                <FolderOpenIcon className="mr-2 size-5" /> Load
+              </MenuItem>
 
-            <MenuItem onClick={handleCrop}>
-              <ArrowsPointingInIcon className="mr-2 size-5" /> Crop
-            </MenuItem>
+              <MenuItem onClick={() => setSizeEditorVisible(true)}>
+                <ArrowsPointingInIcon className="mr-2 size-5" /> Size...
+              </MenuItem>
 
-            <MenuItem onClick={handleDownloadPDF}>
-              <PrinterIcon className="mr-2 size-5" aria-hidden="true" />
-              {isGeneratingPdf ? "Generating PDF..." : "Download PDF"}
-            </MenuItem>
+              <MenuItem onClick={handleDownloadPDF}>
+                <PrinterIcon className="mr-2 size-5" aria-hidden="true" />
+                {isGeneratingPdf ? "Generating PDF..." : "Download PDF"}
+              </MenuItem>
 
-            <hr className="my-1" />
+              <hr className="my-1" />
 
-            <MenuItem
-              onClick={() => {
-                localStorage.clear();
-                window.location.reload();
-              }}
-            >
-              <TrashIcon className="mr-2 size-5" /> Clear
-            </MenuItem>
-          </div>
-        </Menu.Items>
-      </Transition>
-    </Menu>
+              <MenuItem
+                onClick={() => {
+                  localStorage.clear();
+                  window.location.reload();
+                }}
+              >
+                <TrashIcon className="mr-2 size-5" /> Clear
+              </MenuItem>
+            </div>
+          </Menu.Items>
+        </Transition>
+      </Menu>
+    </>
   );
 };
 
