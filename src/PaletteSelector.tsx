@@ -1,8 +1,6 @@
-import { useState, type FC } from "react";
+import { type FC, useState } from "react";
 
 import PaletteEditor from "./PaletteEditor";
-
-// import ColorPicker from "./ColorPicker";
 
 const PaletteSelector: FC<{
   palette: string[];
@@ -10,17 +8,6 @@ const PaletteSelector: FC<{
   selectedIndex: number | null;
   setSelectedIndex: (index: number | null) => void;
 }> = ({ palette, setPalette, selectedIndex, setSelectedIndex }) => {
-  // const addColorToPalette = (color: string) => {
-  //   if (color && !palette.includes(color)) {
-  //     setPalette([...palette, color]);
-  //   }
-  // };
-
-  // const handleColorChange = (color: string) => {
-  //   addColorToPalette(color);
-  //   setSelectedIndex(palette.length - 1);
-  // };
-
   const [paletteEditorVisible, setPaletteEditorVisible] = useState(false);
 
   return (
@@ -60,14 +47,13 @@ const PaletteSelector: FC<{
             />
           ))}
         </div>
-        <div className="flex flex-col items-center w-full">
+        <div className="flex w-full flex-col items-center">
           <button
-            className="flex flex-col items-center justify-center rounded-lg bg-white/70 w-full py-2"
+            className="flex w-full flex-col items-center justify-center rounded-lg bg-white/70 py-2"
             onClick={() => setPaletteEditorVisible(true)}
           >
             Change...
           </button>
-          {/* <ColorPicker addColor={handleColorChange} /> */}
         </div>
       </div>
     </>
