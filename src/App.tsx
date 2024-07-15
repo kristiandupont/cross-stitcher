@@ -11,14 +11,14 @@ const initialHeight = 52;
 
 // Initial palette colors (can be modified)
 const initialPalette = [
-  "#1b9e77",
-  "#d95f02",
-  "#7570b3",
-  "#e7298a",
-  "#66a61e",
-  "#e6ab02",
-  "#a6761d",
-  "#666666",
+  "#00A275",
+  "#F44900",
+  "#738CAA",
+  "#DB3779",
+  "#627739",
+  "#FFB000",
+  "#B27737",
+  "#6B6766",
   "#ffffff",
 ];
 
