@@ -3,7 +3,7 @@ import "./Editor.css";
 import type { FC, MouseEventHandler } from "react";
 import { createRef, useCallback, useEffect, useMemo, useState } from "react";
 
-import type { GridData } from "./App";
+import type { Cell, FillType, GridData } from "./App";
 
 const createCursor = (radius: number): string => {
   const canvas = document.createElement("canvas");
@@ -26,10 +26,21 @@ function brushStroke(
   row: number,
   col: number,
   brushSize: number,
+  brushType: FillType,
   colorIndex: number | null
 ): GridData {
   const newGridData = [...gridData];
   const min1 = Math.ceil(Math.max(brushSize, 1));
+
+  if (brushType !== "full") {
+    if (colorIndex === null) {
+      newGridData[row][col] = null;
+      return newGridData;
+    }
+    // Only fill one cell, with the specified fill type
+    newGridData[row][col] = `${colorIndex}:${brushType}`;
+    return newGridData;
+  }
 
   // Iterate over a square area around the central cell
   for (let i = -min1; i <= min1; i++) {
@@ -56,12 +67,23 @@ function brushStroke(
   return newGridData;
 }
 
+function getFillType(cell: NonNullable<Cell>): [number, FillType] {
+  if (typeof cell === "number") {
+    return [cell, "full"];
+  }
+
+  const [colorIndex, fillType] = cell.split(":") as [string, FillType];
+
+  return [parseInt(colorIndex), fillType];
+}
+
 const Editor: FC<{
   gridData: GridData;
   setGridData: (gridData: GridData) => void;
   palette: string[];
   selectedColorIndex: number | null;
   brushSize: number;
+  brushType: FillType;
   zoom: number;
 }> = ({
   gridData,
@@ -69,6 +91,7 @@ const Editor: FC<{
   palette,
   selectedColorIndex,
   brushSize,
+  brushType,
   zoom,
 }) => {
   const cellSize = 8 * zoom;
@@ -83,6 +106,7 @@ const Editor: FC<{
       row,
       col,
       brushSize,
+      brushType,
       selectedColorIndex
     );
     setGridData(newGridData);
@@ -121,13 +145,54 @@ const Editor: FC<{
 
       gridData.forEach((row, rowIndex) => {
         row.forEach((cell, colIndex) => {
-          ctx.fillStyle = cell === null ? "transparent" : palette[cell];
-          ctx.fillRect(
-            colIndex * cellSize,
-            rowIndex * cellSize,
-            cellSize,
-            cellSize
-          );
+          if (cell === null) {
+            ctx.fillStyle = "transparent";
+            ctx.fillRect(
+              colIndex * cellSize,
+              rowIndex * cellSize,
+              cellSize,
+              cellSize
+            );
+            return;
+          }
+
+          const [colorIndex, fillType] = getFillType(cell);
+
+          ctx.fillStyle = palette[colorIndex];
+          if (fillType === "full") {
+            ctx.fillRect(
+              colIndex * cellSize,
+              rowIndex * cellSize,
+              cellSize,
+              cellSize
+            );
+          } else {
+            // Not full, draw a triangle that fills half the cell.
+            ctx.beginPath();
+
+            if (fillType === "A") {
+              // Upper-left half triangle
+              ctx.moveTo(colIndex * cellSize, rowIndex * cellSize);
+              ctx.lineTo((colIndex + 1) * cellSize, rowIndex * cellSize);
+              ctx.lineTo(colIndex * cellSize, (rowIndex + 1) * cellSize);
+            } else if (fillType === "B") {
+              // Upper-right half triangle
+              ctx.moveTo((colIndex + 1) * cellSize, rowIndex * cellSize);
+              ctx.lineTo((colIndex + 1) * cellSize, (rowIndex + 1) * cellSize);
+              ctx.lineTo(colIndex * cellSize, (rowIndex + 1) * cellSize);
+            } else if (fillType === "C") {
+              // Lower-right half triangle
+              ctx.moveTo((colIndex + 1) * cellSize, (rowIndex + 1) * cellSize);
+              ctx.lineTo(colIndex * cellSize, (rowIndex + 1) * cellSize);
+              ctx.lineTo((colIndex + 1) * cellSize, rowIndex * cellSize);
+            } else if (fillType === "D") {
+              // Lower-left half triangle
+              ctx.moveTo(colIndex * cellSize, (rowIndex + 1) * cellSize);
+              ctx.lineTo(colIndex * cellSize, rowIndex * cellSize);
+              ctx.lineTo((colIndex + 1) * cellSize, (rowIndex + 1) * cellSize);
+            }
+            ctx.fill();
+          }
         });
       });
 

@@ -66,6 +66,11 @@ const App: FC = () => {
     1
   );
 
+  const [brushType, setBrushType] = useDebouncedLocalStorageState<FillType>(
+    "brushType",
+    "full"
+  );
+
   const [selectedColorIndex, setSelectedColorIndex] =
     useDebouncedLocalStorageState<number | null>("selectedColorIndex", 0);
 
@@ -87,7 +92,12 @@ const App: FC = () => {
       <main className="flex w-full flex-1 flex-row items-start justify-start space-x-8 p-8">
         <div className="flex w-52 flex-col items-start justify-start">
           <div className="flex flex-col items-center space-y-8 rounded-xl bg-white/30 p-4">
-            <BrushEditor brushSize={brushSize} setBrushSize={setBrushSize} />
+            <BrushEditor
+              brushSize={brushSize}
+              setBrushSize={setBrushSize}
+              brushType={brushType}
+              setBrushType={setBrushType}
+            />
             <PaletteSelector
               palette={palette}
               setPalette={setPalette}
@@ -111,6 +121,7 @@ const App: FC = () => {
               palette={palette}
               selectedColorIndex={selectedColorIndex}
               brushSize={brushSize}
+              brushType={brushType}
               zoom={zoom}
             />
           </div>
