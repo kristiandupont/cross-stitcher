@@ -12,6 +12,7 @@ import { type FC, Fragment, useState } from "react";
 
 import type { GridData } from "./App";
 import PdfRenderer from "./PdfRenderer";
+import PrintDialog from "./PrintDialog";
 import SaveIcon from "./SaveIcon";
 import SizeEditor from "./SizeEditor";
 
@@ -100,6 +101,8 @@ const DropdownMenu: FC<{
     input.click();
   };
 
+  const [printDialogVisible, setPrintDialogVisible] = useState(false);
+
   const [sizeEditorVisible, setSizeEditorVisible] = useState(false);
 
   return (
@@ -109,6 +112,12 @@ const DropdownMenu: FC<{
         onClose={() => setSizeEditorVisible(false)}
         gridData={gridData}
         setGridData={setGridData}
+      />
+      <PrintDialog
+        isOpen={printDialogVisible}
+        onClose={() => setPrintDialogVisible(false)}
+        gridData={gridData}
+        palette={palette}
       />
       <Menu as="div" className="relative inline-block text-left">
         <div>
@@ -150,6 +159,11 @@ const DropdownMenu: FC<{
               <MenuItem onClick={handleDownloadPDF}>
                 <PrinterIcon className="mr-2 size-5" aria-hidden="true" />
                 {isGeneratingPdf ? "Generating PDF..." : "Download PDF"}
+              </MenuItem>
+
+              <MenuItem onClick={() => setPrintDialogVisible(true)}>
+                <PrinterIcon className="mr-2 size-5" aria-hidden="true" />{" "}
+                Print...
               </MenuItem>
 
               <hr className="my-1" />
