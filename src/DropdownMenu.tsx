@@ -14,7 +14,7 @@ import type { GridData } from "./App";
 import PdfRenderer from "./PdfRenderer";
 import PrintDialog from "./PrintDialog";
 import SaveIcon from "./SaveIcon";
-import SizeEditor from "./SizeEditor";
+import SizeEditModal from "./SizeEditModal";
 
 const MenuItem: FC<{ onClick: () => void; children: React.ReactNode }> = ({
   onClick,
@@ -107,7 +107,7 @@ const DropdownMenu: FC<{
 
   return (
     <>
-      <SizeEditor
+      <SizeEditModal
         isVisible={sizeEditorVisible}
         onClose={() => setSizeEditorVisible(false)}
         gridData={gridData}

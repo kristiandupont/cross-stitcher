@@ -3,7 +3,7 @@ import { type FC, useState } from "react";
 import type { GridData } from "./App";
 import Modal from "./Modal";
 
-const SizeEditor: FC<{
+const SizeEditModal: FC<{
   gridData: GridData;
   setGridData: (gridData: GridData) => void;
   isVisible: boolean;
@@ -110,4 +110,4 @@ const SizeEditor: FC<{
   );
 };
 
-export default SizeEditor;
+export default SizeEditModal;
