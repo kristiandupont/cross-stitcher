@@ -187,7 +187,6 @@ const PrintDialog: FC<{
                 </div>
               </div>
               <div className="w-64 m-4 flex flex-col space-y-4">
-                <h1>Controls</h1>
                 <select
                   value={orientation}
                   onChange={({ target }) => {

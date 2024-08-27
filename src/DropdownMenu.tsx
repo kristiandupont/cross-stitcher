@@ -43,13 +43,14 @@ function saveAs(blob: Blob, filename: string) {
 
 const DropdownMenu: FC<{
   name: string;
+  setName: (name: string) => void;
   gridData: GridData;
   setGridData: (gridData: GridData) => void;
   palette: string[];
   setPalette: (palette: string[]) => void;
-}> = ({ name, gridData, setGridData, palette, setPalette }) => {
+}> = ({ name, setName, gridData, setGridData, palette, setPalette }) => {
   const handleSave = () => {
-    const data = { gridData, palette };
+    const data = { name, gridData, palette };
     const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
     const filenameEncodedName = encodeURIComponent(name);
     saveAs(blob, `${filenameEncodedName}.json`);
@@ -76,6 +77,7 @@ const DropdownMenu: FC<{
               // and set the grid data and palette state
               setGridData(data.gridData);
               setPalette(data.palette);
+              setName(data.name || "Untitled");
             } else {
               console.error("Invalid data");
             }

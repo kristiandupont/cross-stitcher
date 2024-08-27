@@ -102,6 +102,9 @@ const App: FC = () => {
             type="text"
             value={name}
             onChange={handleNameChange}
+            onFocus={(e) => {
+              e.target.select();
+            }}
             onBlur={handleNameBlur}
             onKeyDown={handleKeyDown}
             className="text-2xl font-bold bg-transparent outline-none"
@@ -109,8 +112,10 @@ const App: FC = () => {
           />
         ) : (
           <h1
-            className="text-2xl font-bold cursor-text"
-            onClick={() => setIsEditing(true)}
+            className="text-2xl font-bold cursor-text min-w-40"
+            onClick={() => {
+              setIsEditing(true);
+            }}
           >
             {name}
           </h1>
@@ -118,6 +123,7 @@ const App: FC = () => {
         <ZoomSelector zoom={zoom} setZoom={setZoom}></ZoomSelector>
         <DropdownMenu
           name={name}
+          setName={setName}
           gridData={gridData}
           setGridData={setGridData}
           palette={palette}
