@@ -2,16 +2,13 @@ import { Menu, Transition } from "@headlessui/react";
 import {
   ArrowsPointingInIcon,
   ChevronDownIcon,
-  CogIcon,
   FolderOpenIcon,
   PrinterIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
-import { pdf } from "@react-pdf/renderer";
 import { type FC, Fragment, useState } from "react";
 
 import type { GridData } from "./App";
-import PdfRenderer from "./PdfRenderer";
 import PrintDialog from "./PrintDialog";
 import SaveIcon from "./SaveIcon";
 import SizeEditModal from "./SizeEditModal";
@@ -45,28 +42,17 @@ function saveAs(blob: Blob, filename: string) {
 }
 
 const DropdownMenu: FC<{
+  name: string;
   gridData: GridData;
   setGridData: (gridData: GridData) => void;
   palette: string[];
   setPalette: (palette: string[]) => void;
-}> = ({ gridData, setGridData, palette, setPalette }) => {
-  const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
-
-  const handleDownloadPDF = async () => {
-    setIsGeneratingPdf(true);
-    setTimeout(async () => {
-      const pdfBlob = await pdf(
-        <PdfRenderer gridData={gridData} palette={palette} />
-      ).toBlob();
-      saveAs(pdfBlob, "cross-stitch.pdf");
-      setIsGeneratingPdf(false);
-    }, 0);
-  };
-
+}> = ({ name, gridData, setGridData, palette, setPalette }) => {
   const handleSave = () => {
     const data = { gridData, palette };
     const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
-    saveAs(blob, "cross-stitch.json");
+    const filenameEncodedName = encodeURIComponent(name);
+    saveAs(blob, `${filenameEncodedName}.json`);
   };
 
   const handleLoad = () => {
@@ -116,6 +102,7 @@ const DropdownMenu: FC<{
       <PrintDialog
         isOpen={printDialogVisible}
         onClose={() => setPrintDialogVisible(false)}
+        name={name}
         gridData={gridData}
         palette={palette}
       />
@@ -123,14 +110,10 @@ const DropdownMenu: FC<{
         <div>
           <Menu.Button className="inline-flex w-full justify-center rounded-md bg-black/20 px-4 py-2 text-sm font-medium text-white hover:bg-black/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
             Options
-            {isGeneratingPdf ? (
-              <CogIcon className="-mr-1 ml-2 size-5 animate-spin text-violet-200 hover:text-violet-100" />
-            ) : (
-              <ChevronDownIcon
-                className="-mr-1 ml-2 size-5 text-violet-200 hover:text-violet-100"
-                aria-hidden="true"
-              />
-            )}
+            <ChevronDownIcon
+              className="-mr-1 ml-2 size-5 text-violet-200 hover:text-violet-100"
+              aria-hidden="true"
+            />
           </Menu.Button>
         </div>
         <Transition
@@ -154,11 +137,6 @@ const DropdownMenu: FC<{
 
               <MenuItem onClick={() => setSizeEditorVisible(true)}>
                 <ArrowsPointingInIcon className="mr-2 size-5" /> Size...
-              </MenuItem>
-
-              <MenuItem onClick={handleDownloadPDF}>
-                <PrinterIcon className="mr-2 size-5" aria-hidden="true" />
-                {isGeneratingPdf ? "Generating PDF..." : "Download PDF"}
               </MenuItem>
 
               <MenuItem onClick={() => setPrintDialogVisible(true)}>

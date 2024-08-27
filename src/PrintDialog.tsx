@@ -1,95 +1,153 @@
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
+import clsx from "clsx";
 import type { FC } from "react";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 import type { GridData } from "./App";
 
-const PrintBody: FC<{ gridData: GridData; palette: string[] }> = ({
-  gridData,
-  palette,
-}) => (
-  <div>
-    <h1 className="text-2xl font-bold">Cross Stitcher</h1>
+type Orientation = "portrait" | "landscape";
+
+const aspectRatios = {
+  portrait: "1/1.414",
+  landscape: "1.414/1",
+};
+
+function useObjectFit(style: "cover" | "contain"): {
+  ref: React.RefObject<HTMLDivElement>;
+  refresh: () => void;
+} {
+  const ref = useRef<HTMLDivElement>(null);
+  const refresh = useCallback(() => {
+    console.log("REFRESH. Ref exists: ", Boolean(ref.current));
+    if (!ref.current) {
+      return;
+    }
+    const parent = ref.current.parentElement;
+    if (!parent) {
+      return;
+    }
+
+    const parentWidth = parent.clientWidth;
+    const parentHeight = parent.clientHeight;
+    const containerWidth = ref.current.clientWidth;
+    const containerHeight = ref.current.clientHeight;
+
+    let scale = 1;
+    if (style === "cover") {
+      scale = Math.max(
+        parentWidth / containerWidth,
+        parentHeight / containerHeight
+      );
+    } else {
+      scale = Math.min(
+        parentWidth / containerWidth,
+        parentHeight / containerHeight
+      );
+    }
+    console.log({ parentWidth, parentHeight, containerWidth, containerHeight });
+    console.log("REFRESH. Scale: ", scale);
+    ref.current.style.transform = `scale(${scale})`;
+    ref.current.style.transformOrigin = "top left";
+  }, [ref, style]);
+
+  useEffect(() => {
+    setTimeout(refresh, 100);
+
+    window.addEventListener("resize", refresh);
+    return () => window.removeEventListener("resize", refresh);
+  }, [refresh]);
+  return { ref, refresh };
+}
+
+const a4 = { width: 210, height: 297 };
+
+const PrintBody: FC<{
+  name: string;
+  gridData: GridData;
+  palette: string[];
+  orientation: Orientation;
+}> = ({ name, gridData, palette, orientation }) => {
+  const { ref } = useObjectFit("contain");
+  return (
     <div className="">
-      Palette:
-      <div className="flex flex-row space-x-2">
-        {palette.map((color, index) => (
-          <div
-            key={index}
-            className="size-8"
-            style={{ backgroundColor: color }}
-          />
-        ))}
+      <div
+        className={clsx("flex", {
+          "flex-col": orientation === "portrait",
+          "flex-row": orientation === "landscape",
+        })}
+      >
+        <div className="">
+          <h1 className="text-2xl font-bold">{name}</h1>
+          <div className="">
+            Palette:
+            <div className="flex flex-row space-x-2">
+              {palette.map((color, index) => (
+                <div
+                  key={index}
+                  className="size-8"
+                  style={{ backgroundColor: color }}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="">
+          Grid:
+          <div className="flex flex-col" ref={ref}>
+            {gridData.map((row, rowIndex) => (
+              <div key={rowIndex} className="flex flex-row">
+                {row.map((cell, colIndex) => {
+                  if (cell === null) {
+                    return <div key={colIndex} className="size-4" />;
+                  }
+                  const paletteIndex =
+                    typeof cell === "string"
+                      ? Number(cell.split(":")[0])
+                      : cell;
+                  const color = palette[paletteIndex];
+                  return (
+                    <div
+                      key={colIndex}
+                      className="size-4"
+                      style={{ backgroundColor: color }}
+                    />
+                  );
+                })}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
-    Grid:
-    <div
-      className="grid gap-0.5 grid-cols-10"
-      style={{ columnCount: gridData[0].length }}
-    >
-      {gridData.map((row, rowIndex) =>
-        row.map((cell, colIndex) => {
-          if (cell === null) {
-            return <div key={colIndex} className="size-4" />;
-          }
-          const paletteIndex =
-            typeof cell === "string" ? Number(cell.split(":")[0]) : cell;
-          const color = palette[paletteIndex];
-          return (
-            <div
-              key={colIndex}
-              className="size-4"
-              style={{ backgroundColor: color }}
-            />
-          );
-        })
-      )}
-    </div>
-  </div>
-);
+  );
+};
 
 type PageSize = "a4" | "a3";
-
-const pageSizes: Record<PageSize, { width: number; height: number }> = {
-  a4: { width: 210, height: 297 },
-  a3: { width: 297, height: 420 },
-};
 
 const PrintDialog: FC<{
   isOpen: boolean;
   onClose: () => void;
+  name: string;
   gridData: GridData;
   palette: string[];
-}> = ({ isOpen, onClose, gridData, palette }) => {
-  const printContentRef = useRef<HTMLDivElement>(null);
+}> = ({ isOpen, onClose, name, gridData, palette }) => {
   const [pageSize, setPageSize] = useState<PageSize>("a4");
-  const [scale, setScale] = useState(0.2);
+  const [orientation, setOrientation] = useState<Orientation>("portrait");
 
-  useEffect(() => {
-    const updateScale = () => {
-      if (printContentRef.current) {
-        const containerWidth = printContentRef.current.offsetWidth;
-        const containerHeight = printContentRef.current.offsetHeight;
-        const pageAspectRatio =
-          pageSizes[pageSize].height / pageSizes[pageSize].width;
-        const containerAspectRatio = containerHeight / containerWidth;
-
-        if (pageAspectRatio > containerAspectRatio) {
-          setScale(containerHeight / pageSizes[pageSize].height);
-        } else {
-          setScale(containerWidth / pageSizes[pageSize].width);
-        }
-      }
-    };
-
-    updateScale();
-    window.addEventListener("resize", updateScale);
-    return () => window.removeEventListener("resize", updateScale);
-  }, [pageSize]);
+  const { ref: printContentRef, refresh: refreshPrintContent } =
+    useObjectFit("contain");
 
   const handlePrint = () => {
+    const style = document.createElement("style");
+    style.textContent = `
+      @page {
+        size: ${pageSize} ${orientation};
+      }
+    `;
+    document.head.appendChild(style);
     window.print();
+    document.head.removeChild(style);
   };
 
   if (!isOpen) {
@@ -105,27 +163,41 @@ const PrintDialog: FC<{
       >
         <div className="fixed inset-0 bg-gray-500/75 transition-opacity dark:bg-gray-700/75" />
         <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
-          <DialogPanel className="m-8 w-full space-y-4 rounded-lg border bg-white p-6 shadow-xl">
+          <DialogPanel className="m-8 w-full max-w-screen-lg space-y-4 rounded-lg border bg-white p-6 shadow-xl">
             <DialogTitle className="font-bold">Print...</DialogTitle>
-            <div className="size-full">
-              <div
-                className="overflow-auto border border-gray-200"
-                style={{ height: "calc(80vh - 200px)" }}
-              >
+            <div className="flex flex-row space-x-4 justify-between">
+              <div className="h-[600px] w-[800px] overflow-hidden">
                 <div
                   ref={printContentRef}
+                  className="border border-gray-200 shadow"
                   style={{
-                    width: `${pageSizes[pageSize].width}px`,
-                    height: `${pageSizes[pageSize].height}px`,
-                    transform: `scale(${scale})`,
-                    transformOrigin: "top left",
-                    boxSizing: "border-box",
-                    padding: `${Number(scale)}cm`,
-                    overflow: "hidden",
+                    width:
+                      orientation === "portrait"
+                        ? `${a4.width}mm`
+                        : `${a4.height}mm`,
+                    aspectRatio: aspectRatios[orientation],
                   }}
                 >
-                  <PrintBody gridData={gridData} palette={palette} />
+                  <PrintBody
+                    name={name}
+                    gridData={gridData}
+                    palette={palette}
+                    orientation={orientation}
+                  />
                 </div>
+              </div>
+              <div className="w-64 m-4 flex flex-col space-y-4">
+                <h1>Controls</h1>
+                <select
+                  value={orientation}
+                  onChange={({ target }) => {
+                    setOrientation(target.value as Orientation);
+                    refreshPrintContent();
+                  }}
+                >
+                  <option value="portrait">Portrait</option>
+                  <option value="landscape">Landscape</option>
+                </select>
               </div>
             </div>
             <div className="flex justify-end gap-4">
@@ -146,8 +218,13 @@ const PrintDialog: FC<{
         </div>
       </Dialog>
       {createPortal(
-        <div id="print-content">
-          <PrintBody gridData={gridData} palette={palette} />
+        <div id="print-content" className="w-screen h-auto">
+          <PrintBody
+            name={name}
+            gridData={gridData}
+            palette={palette}
+            orientation={orientation}
+          />
         </div>,
         document.body
       )}

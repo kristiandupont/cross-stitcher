@@ -1,4 +1,5 @@
 import type { FC } from "react";
+import { useState } from "react";
 
 import BrushEditor from "./BrushEditor";
 import DropdownMenu from "./DropdownMenu";
@@ -51,6 +52,7 @@ const ZoomSelector: FC<{ zoom: number; setZoom: (zoom: number) => void }> = ({
 
 const App: FC = () => {
   // State for the palette and grid data
+  const [name, setName] = useDebouncedLocalStorageState("name", "(untitled)");
   const [palette, setPalette] = useDebouncedLocalStorageState(
     "palette",
     initialPalette
@@ -76,12 +78,46 @@ const App: FC = () => {
 
   const [zoom, setZoom] = useDebouncedLocalStorageState("zoom", 1);
 
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  };
+
+  const handleNameBlur = () => {
+    setIsEditing(false);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      setIsEditing(false);
+    }
+  };
+
   return (
     <div className="flex w-full flex-col items-center justify-between">
       <nav className="flex w-full items-center justify-between bg-white/60 p-4">
-        <h1 className="text-2xl font-bold">Cross Stitcher</h1>
+        {isEditing ? (
+          <input
+            type="text"
+            value={name}
+            onChange={handleNameChange}
+            onBlur={handleNameBlur}
+            onKeyDown={handleKeyDown}
+            className="text-2xl font-bold bg-transparent outline-none"
+            autoFocus
+          />
+        ) : (
+          <h1
+            className="text-2xl font-bold cursor-text"
+            onClick={() => setIsEditing(true)}
+          >
+            {name}
+          </h1>
+        )}
         <ZoomSelector zoom={zoom} setZoom={setZoom}></ZoomSelector>
         <DropdownMenu
+          name={name}
           gridData={gridData}
           setGridData={setGridData}
           palette={palette}
