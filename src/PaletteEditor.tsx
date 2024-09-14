@@ -5,20 +5,8 @@ import { useEffect, useState } from "react";
 import { HexColorPicker } from "react-colorful";
 
 import dmcColors from "./dmc-colors.json";
+import { matchDmcColor } from "./matchDmcColor";
 import Modal from "./Modal";
-
-function colorDistance(color1: string, color2: string): number {
-  const [r1, g1, b1] = color1
-    .slice(1)
-    .match(/.{1,2}/g)!
-    .map((hex) => Number.parseInt(hex, 16));
-  const [r2, g2, b2] = color2
-    .slice(1)
-    .match(/.{1,2}/g)!
-    .map((hex) => Number.parseInt(hex, 16));
-
-  return Math.hypot(r2 - r1, g2 - g1, b2 - b1);
-}
 
 const PaletteEditor: FC<{
   isVisible: boolean;
@@ -44,12 +32,7 @@ const PaletteEditor: FC<{
   const [matchesDmcColor, setMatchesDmcColor] = useState<boolean>(false);
 
   useEffect(() => {
-    const distances = dmcColors.map((dmcColor) => ({
-      color: dmcColor,
-      distance: colorDistance(color, `#${dmcColor.color}`),
-    }));
-    distances.sort((a, b) => a.distance - b.distance);
-    const closestDmcColor = distances[0];
+    const closestDmcColor = matchDmcColor(color);
     setDmcColorId(closestDmcColor.color.id);
     setMatchesDmcColor(closestDmcColor.distance === 0);
   }, [color]);
@@ -77,9 +60,9 @@ const PaletteEditor: FC<{
               />
             ))}
           </div>
-          <div className="flex flex-row space-x-2 items-center justify-start">
+          <div className="flex flex-row items-center justify-start space-x-2">
             <button
-              className="bg-gray-100 border shadow rounded-lg px-2 py-1"
+              className="rounded-lg border bg-gray-100 px-2 py-1 shadow"
               onClick={() => setPalette([...palette, "#888888"])}
             >
               Add
@@ -111,7 +94,7 @@ const PaletteEditor: FC<{
               <Checkbox
                 checked={matchesDmcColor}
                 onChange={applyDmcColor}
-                className="group size-6 border border-gray-100 shadow rounded-md bg-white/10 p-1 ring-1 ring-inset ring-white/15 data-[checked]:bg-white"
+                className="group size-6 rounded-md border border-gray-100 bg-white/10 p-1 shadow ring-1 ring-inset ring-white/15 data-[checked]:bg-white"
               >
                 <CheckIcon className="hidden size-4 fill-black group-data-[checked]:block" />
               </Checkbox>

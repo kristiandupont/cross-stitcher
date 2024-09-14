@@ -1,121 +1,128 @@
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
-import clsx from "clsx";
 import type { FC } from "react";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { createPortal } from "react-dom";
 
 import type { GridData } from "./App";
+import logo from "./logo.png";
+import { matchDmcColor } from "./matchDmcColor";
 
 type Orientation = "portrait" | "landscape";
 
 const pageSizes = {
-  a4: { width: "210mm", height: "297mm", fontSize: "10mm" },
-  a3: { width: "297mm", height: "420mm", fontSize: "11mm" },
+  a4: { width: 210, height: 297, fontSize: "10mm", scale: 0.58, margin: 15 },
+  a3: { width: 297, height: 420, fontSize: "11mm", scale: 0.4, margin: 20 },
 };
 
 type PageSize = keyof typeof pageSizes;
 
-function useObjectFit(style: "cover" | "contain"): {
-  ref: React.RefObject<HTMLDivElement>;
-  refresh: () => void;
-} {
-  const ref = useRef<HTMLDivElement>(null);
-  const refresh = useCallback(() => {
-    console.log("REFRESH. Ref exists: ", Boolean(ref.current));
-    if (!ref.current) {
-      return;
-    }
-    const parent = ref.current.parentElement;
-    if (!parent) {
-      return;
-    }
+const isTenth = (index: number): boolean => index % 10 === 0;
+const Grid: FC<{ gridData: GridData; palette: string[] }> = ({
+  gridData,
+  palette,
+}) => {
+  const centerRow = Math.floor(gridData.length / 2);
+  const centerCol = Math.floor(gridData[0].length / 2);
+  const rowCount = gridData.length;
+  const colCount = gridData[0].length;
 
-    const parentWidth = parent.clientWidth;
-    const parentHeight = parent.clientHeight;
-    const containerWidth = ref.current.clientWidth;
-    const containerHeight = ref.current.clientHeight;
+  const cellWidth = 625 / colCount;
+  const cellHeight = 625 / rowCount;
+  const cellSize = Math.min(cellWidth, cellHeight);
 
-    let scale = 1;
-    if (style === "cover") {
-      scale = Math.max(
-        parentWidth / containerWidth,
-        parentHeight / containerHeight
-      );
-    } else {
-      scale = Math.min(
-        parentWidth / containerWidth,
-        parentHeight / containerHeight
-      );
-    }
-    console.log({ parentWidth, parentHeight, containerWidth, containerHeight });
-    console.log("REFRESH. Scale: ", scale);
-    ref.current.style.transform = `scale(${scale})`;
-    ref.current.style.transformOrigin = "top left";
-  }, [ref, style]);
-
-  useEffect(() => {
-    setTimeout(refresh, 100);
-
-    window.addEventListener("resize", refresh);
-    return () => window.removeEventListener("resize", refresh);
-  }, [refresh]);
-  return { ref, refresh };
-}
+  return (
+    <div className="flex flex-col p-[1px]">
+      {gridData.map((row, rowIndex) => (
+        <div key={rowIndex} className="flex flex-row">
+          {row.map((cell, cellIndex) => {
+            const paletteIndex =
+              typeof cell === "string" ? Number(cell.split(":")[0]) : cell;
+            const color =
+              paletteIndex !== null ? palette[paletteIndex] : "white";
+            return (
+              <div
+                key={cellIndex}
+                style={{
+                  width: cellSize,
+                  height: cellSize,
+                  backgroundColor: color,
+                  borderTop:
+                    rowIndex === centerRow
+                      ? "1px solid red"
+                      : isTenth(rowIndex)
+                        ? "1px solid black"
+                        : "1px solid #E4E4E4",
+                  borderLeft:
+                    cellIndex === centerCol
+                      ? "1px solid red"
+                      : isTenth(cellIndex)
+                        ? "1px solid black"
+                        : "1px solid #E4E4E4",
+                }}
+              />
+            );
+          })}
+        </div>
+      ))}
+    </div>
+  );
+};
 
 const PrintBody: FC<{
   name: string;
   gridData: GridData;
   palette: string[];
   orientation: Orientation;
-}> = ({ name, gridData, palette, orientation }) => {
-  return (
-    <div className="h-full flex flex-col">
-      <div className="flex-shrink-0">
-        <h1 style={{ fontSize: "1.2em" }} className="font-bold">
-          {name}
-        </h1>
-        <div className="">
-          Palette:
-          <div className="flex flex-row space-x-2">
-            {palette.map((color, index) => (
-              <div
-                key={index}
-                className="size-8"
-                style={{ backgroundColor: color }}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-      <div className="flex-grow flex flex-col mt-4">
-        <div
-          className="flex-grow grid gap-[1px] bg-black p-[1px]"
-          style={{
-            gridTemplateColumns: `repeat(${gridData[0].length}, 1fr)`,
-            gridTemplateRows: `repeat(${gridData.length}, 1fr)`,
-            aspectRatio: `${gridData[0].length} / ${gridData.length}`,
-          }}
-        >
-          {gridData.flat().map((cell, index) => {
-            if (cell === null) {
-              return <div key={index} className="aspect-square bg-white" />;
-            }
-            const paletteIndex =
-              typeof cell === "string" ? Number(cell.split(":")[0]) : cell;
-            const color = palette[paletteIndex];
+}> = ({ name, gridData, palette, orientation }) => (
+  <div className="h-full flex flex-col justify-between">
+    <header>
+      <h1 style={{ fontSize: "1.2em" }} className="font-bold">
+        {name}
+      </h1>
+    </header>
+    <main
+      className={`flex ${orientation === "portrait" ? "flex-col space-y-4" : "flex-row space-x-4"}`}
+    >
+      <Grid gridData={gridData} palette={palette} />
+      <div className="size-full">
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(1em,1fr))] gap-2">
+          {palette.map((color, index) => {
+            const { color: dmcColor, distance } = matchDmcColor(color);
             return (
               <div
                 key={index}
-                className="aspect-square"
-                style={{ backgroundColor: color }}
-              />
+                className="flex flex-row space-x-1 items-center justify-start"
+              >
+                <div
+                  className="size-4 border border-gray-200"
+                  style={{ backgroundColor: color }}
+                />
+                <div className="text-[0.2em]">
+                  {distance === 0 ? dmcColor.id : color}
+                </div>
+              </div>
             );
           })}
         </div>
       </div>
-    </div>
-  );
-};
+    </main>
+    <footer>
+      <div className="w-full flex justify-between items-end">
+        <div className="text-xs text-gray-500 flex flex-col space-y-2">
+          <div>Copyright &copy; NedalNeedle.</div>
+          <div>
+            Mønsteret er kun til privat bruk og må ikke kopieres, videreselges
+            eller omfordeles.
+            <br />
+            Det er ikke tillatt med systematisk salg av produkter laget av dette
+            mønsteret.
+          </div>
+        </div>
+        <img src={logo} alt="logo" style={{ height: "2.5em" }} />
+      </div>
+    </footer>
+  </div>
+);
 
 const PrintDialog: FC<{
   isOpen: boolean;
@@ -131,29 +138,26 @@ const PrintDialog: FC<{
     () => ({
       width:
         orientation === "portrait"
-          ? pageSizes[pageSize].width
-          : pageSizes[pageSize].height,
+          ? `${pageSizes[pageSize].width - pageSizes[pageSize].margin * 2}mm`
+          : `${pageSizes[pageSize].height - pageSizes[pageSize].margin * 2}mm`,
       height:
         orientation === "portrait"
-          ? pageSizes[pageSize].height
-          : pageSizes[pageSize].width,
+          ? `${pageSizes[pageSize].height - pageSizes[pageSize].margin * 2}mm`
+          : `${pageSizes[pageSize].width - pageSizes[pageSize].margin * 2}mm`,
       fontSize: pageSizes[pageSize].fontSize,
     }),
     [pageSize, orientation]
   );
 
-  const { ref: printContentRef, refresh: refreshPrintContent } =
-    useObjectFit("contain");
-
-  useEffect(() => {
-    refreshPrintContent();
-  }, [refreshPrintContent]);
+  // const { ref: printContentRef, refresh: refreshPrintContent } =
+  //   useObjectFit("contain");
 
   const handlePrint = () => {
     const style = document.createElement("style");
     style.textContent = `
       @page {
         size: ${pageSize} ${orientation};
+        margin: ${pageSizes[pageSize].margin}mm;
       }
     `;
     document.head.appendChild(style);
@@ -177,11 +181,15 @@ const PrintDialog: FC<{
           <DialogPanel className="m-8 w-full max-w-screen-lg space-y-4 rounded-lg border bg-white p-6 shadow-xl">
             <DialogTitle className="font-bold">Print...</DialogTitle>
             <div className="flex flex-row space-x-4 justify-between">
-              <div className="h-[600px] w-[800px] overflow-hidden">
+              <div className="h-[600px] w-[800px]">
                 <div
-                  ref={printContentRef}
-                  className="border border-gray-200 shadow overflow-hidden"
-                  style={printContentStyle}
+                  className="border border-gray-200 shadow-xl"
+                  style={{
+                    ...printContentStyle,
+                    padding: "5mm",
+                    transform: `scale(${pageSizes[pageSize].scale})`,
+                    transformOrigin: "top left",
+                  }}
                 >
                   <PrintBody
                     name={name}
@@ -196,7 +204,6 @@ const PrintDialog: FC<{
                   value={orientation}
                   onChange={({ target }) => {
                     setOrientation(target.value as Orientation);
-                    setTimeout(refreshPrintContent, 100);
                   }}
                 >
                   <option value="portrait">Portrait</option>
@@ -206,7 +213,6 @@ const PrintDialog: FC<{
                   value={pageSize}
                   onChange={({ target }) => {
                     setPageSize(target.value as PageSize);
-                    setTimeout(refreshPrintContent, 100);
                   }}
                 >
                   <option value="a4">A4</option>
