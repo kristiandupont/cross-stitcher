@@ -172,23 +172,23 @@ const Editor: FC<{
 
             if (fillType === "A") {
               // Upper-left half triangle
-              ctx.moveTo(colIndex * cellSize, rowIndex * cellSize);
-              ctx.lineTo((colIndex + 1) * cellSize, rowIndex * cellSize);
-              ctx.lineTo(colIndex * cellSize, (rowIndex + 1) * cellSize);
+              ctx.moveTo((colIndex + 0) * cellSize, (rowIndex + 0) * cellSize);
+              ctx.lineTo((colIndex + 1) * cellSize, (rowIndex + 0) * cellSize);
+              ctx.lineTo((colIndex + 0) * cellSize, (rowIndex + 1) * cellSize);
             } else if (fillType === "B") {
               // Upper-right half triangle
-              ctx.moveTo((colIndex + 1) * cellSize, rowIndex * cellSize);
-              ctx.lineTo((colIndex + 1) * cellSize, (rowIndex + 1) * cellSize);
-              ctx.lineTo(colIndex * cellSize, (rowIndex + 1) * cellSize);
+              ctx.moveTo((colIndex + 1) * cellSize, (rowIndex + 1) * cellSize);
+              ctx.lineTo((colIndex + 1) * cellSize, (rowIndex + 0) * cellSize);
+              ctx.lineTo((colIndex + 0) * cellSize, (rowIndex + 0) * cellSize);
             } else if (fillType === "C") {
               // Lower-right half triangle
               ctx.moveTo((colIndex + 1) * cellSize, (rowIndex + 1) * cellSize);
-              ctx.lineTo(colIndex * cellSize, (rowIndex + 1) * cellSize);
-              ctx.lineTo((colIndex + 1) * cellSize, rowIndex * cellSize);
+              ctx.lineTo((colIndex + 0) * cellSize, (rowIndex + 1) * cellSize);
+              ctx.lineTo((colIndex + 1) * cellSize, (rowIndex + 0) * cellSize);
             } else if (fillType === "D") {
               // Lower-left half triangle
-              ctx.moveTo(colIndex * cellSize, (rowIndex + 1) * cellSize);
-              ctx.lineTo(colIndex * cellSize, rowIndex * cellSize);
+              ctx.moveTo((colIndex + 0) * cellSize, (rowIndex + 1) * cellSize);
+              ctx.lineTo((colIndex + 0) * cellSize, (rowIndex + 0) * cellSize);
               ctx.lineTo((colIndex + 1) * cellSize, (rowIndex + 1) * cellSize);
             }
             ctx.fill();
